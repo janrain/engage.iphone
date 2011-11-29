@@ -79,77 +79,76 @@
 <a name="l00135"></a>00135 
 <a name="l00142"></a>00142 - (void)<a class="code" href="protocol_j_r_engage_delegate-p.html#a388f6ea1d314132c85a215c952fb7901">jrAuthenticationDidNotComplete</a>;
 <a name="l00143"></a>00143 
-<a name="l00181"></a>00181 - (void)jrAuthenticationDidSucceedForUser:(NSDictionary*)auth_info forProvider:(NSString*)provider;
-<a name="l00182"></a>00182 
-<a name="l00197"></a>00197 - (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider;
-<a name="l00198"></a>00198 
-<a name="l00203"></a>00203 - (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
-<a name="l00204"></a>00204 
-<a name="l00224"></a>00224 - (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withResponse:(NSURLResponse*)response andPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
-<a name="l00225"></a>00225 
-<a name="l00239"></a>00239 - (void)jrAuthenticationCallToTokenUrl:(NSString*)tokenUrl didFailWithError:(NSError*)error forProvider:(NSString*)provider;
-<a name="l00247"></a>00247 
-<a name="l00253"></a>00253 - (void)<a class="code" href="protocol_j_r_engage_delegate-p.html#a5ef7762d503eb0f583d172d4a10f7869">jrSocialDidNotCompletePublishing</a>;
-<a name="l00254"></a>00254 
-<a name="l00260"></a>00260 - (void)<a class="code" href="protocol_j_r_engage_delegate-p.html#afc069beff80daac09cc1e06566a45320">jrSocialDidCompletePublishing</a>;
-<a name="l00261"></a>00261 
-<a name="l00273"></a>00273 - (void)jrSocialDidPublishActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity forProvider:(NSString*)provider;
-<a name="l00274"></a>00274 
-<a name="l00288"></a>00288 - (void)jrSocialPublishingActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity didFailWithError:(NSError*)error forProvider:(NSString*)provider;
-<a name="l00290"></a>00290 <span class="keyword">@end</span>
-<a name="l00291"></a>00291 
-<a name="l00316"></a>00316 <span class="keyword">@interface </span><a class="code" href="class_j_r_engage.html" title="Main API for interacting with the Janrain Engage for iPhone library.">JREngage</a> : NSObject &lt;JRSessionDelegate&gt;
-<a name="l00317"></a>00317 {
-<a name="l00318"></a>00318     JRUserInterfaceMaestro *interfaceMaestro;   <span class="comment">/*&lt; \internal Class that handles customizations to the library&#39;s UI */</span>
-<a name="l00319"></a>00319     JRSessionData       *sessionData;                 <span class="comment">/*&lt; \internal Holds configuration and state for the JREngage library */</span>
-<a name="l00320"></a>00320     NSMutableArray      *delegates;                 <span class="comment">/*&lt; \internal Array of JREngageDelegate objects */</span>
-<a name="l00321"></a>00321 }
+<a name="l00179"></a>00179 - (void)jrAuthenticationDidSucceedForUser:(NSDictionary*)auth_info forProvider:(NSString*)provider;
+<a name="l00180"></a>00180 
+<a name="l00195"></a>00195 - (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider;
+<a name="l00196"></a>00196 <span class="comment">//- (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;</span>
+<a name="l00197"></a>00197 
+<a name="l00215"></a>00215 - (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withResponse:(NSURLResponse*)response andPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
+<a name="l00216"></a>00216 
+<a name="l00230"></a>00230 - (void)jrAuthenticationCallToTokenUrl:(NSString*)tokenUrl didFailWithError:(NSError*)error forProvider:(NSString*)provider;
+<a name="l00238"></a>00238 
+<a name="l00244"></a>00244 - (void)<a class="code" href="protocol_j_r_engage_delegate-p.html#a5ef7762d503eb0f583d172d4a10f7869">jrSocialDidNotCompletePublishing</a>;
+<a name="l00245"></a>00245 
+<a name="l00251"></a>00251 - (void)<a class="code" href="protocol_j_r_engage_delegate-p.html#afc069beff80daac09cc1e06566a45320">jrSocialDidCompletePublishing</a>;
+<a name="l00252"></a>00252 
+<a name="l00263"></a>00263 - (void)jrSocialDidPublishActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity forProvider:(NSString*)provider;
+<a name="l00264"></a>00264 
+<a name="l00278"></a>00278 - (void)jrSocialPublishingActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity didFailWithError:(NSError*)error forProvider:(NSString*)provider;
+<a name="l00280"></a>00280 <span class="keyword">@end</span>
+<a name="l00281"></a>00281 
+<a name="l00302"></a>00302 <span class="keyword">@interface </span><a class="code" href="class_j_r_engage.html" title="Main API for interacting with the Janrain Engage for iOS library.">JREngage</a> : NSObject &lt;JRSessionDelegate&gt;
+<a name="l00303"></a>00303 {
+<a name="l00304"></a>00304     JRUserInterfaceMaestro *_interfaceMaestro; <span class="comment">/*&lt; \internal Class that handles customizations to the library&#39;s UI */</span>
+<a name="l00305"></a>00305     JRSessionData          *_sessionData;      <span class="comment">/*&lt; \internal Holds configuration and state for the JREngage library */</span>
+<a name="l00306"></a>00306     NSMutableArray         *_delegates;        <span class="comment">/*&lt; \internal Array of JREngageDelegate objects */</span>
+<a name="l00307"></a>00307 }
+<a name="l00308"></a>00308 
+<a name="l00314"></a>00314 
+<a name="l00321"></a>00321 + (<a class="code" href="class_j_r_engage.html" title="Main API for interacting with the Janrain Engage for iOS library.">JREngage</a>*)jrEngage;
 <a name="l00322"></a>00322 
-<a name="l00328"></a>00328 
-<a name="l00335"></a>00335 + (<a class="code" href="class_j_r_engage.html" title="Main API for interacting with the Janrain Engage for iPhone library.">JREngage</a>*)jrEngage;
-<a name="l00336"></a>00336 
-<a name="l00358"></a>00358 + (<a class="code" href="class_j_r_engage.html" title="Main API for interacting with the Janrain Engage for iPhone library.">JREngage</a>*)jrEngageWithAppId:(NSString*)appId andTokenUrl:(NSString*)tokenUrl delegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
-<a name="l00366"></a>00366 
-<a name="l00373"></a>00373 - (void)addDelegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
+<a name="l00343"></a>00343 + (id)jrEngageWithAppId:(NSString*)appId andTokenUrl:(NSString*)tokenUrl delegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
+<a name="l00351"></a>00351 
+<a name="l00358"></a>00358 - (void)addDelegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
+<a name="l00359"></a>00359 
+<a name="l00366"></a>00366 - (void)removeDelegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
 <a name="l00374"></a>00374 
-<a name="l00381"></a>00381 - (void)removeDelegate:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_j_r_engage_delegate-p.html" title="Protocol adopted by an object that wishes to receive notifications when and information about a user ...">JREngageDelegate</a>&gt;)delegate;
-<a name="l00390"></a>00390 
-<a name="l00397"></a>00397 - (void)showAuthenticationDialog;
-<a name="l00398"></a>00398 
-<a name="l00415"></a>00415 - (void)showAuthenticationDialogWithCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
-<a name="l00416"></a>00416 
-<a name="l00418"></a>00418 <span class="comment">// *</span>
-<a name="l00419"></a>00419 <span class="comment">// **/</span>
-<a name="l00420"></a>00420 <span class="comment">//- (void)showAuthenticationDialogWithForcedReauthenticationOnLastUsedProvider;</span>
-<a name="l00421"></a>00421 
-<a name="l00431"></a>00431 - (void)showSocialPublishingDialogWithActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity;
-<a name="l00432"></a>00432 
-<a name="l00453"></a>00453 - (void)showSocialPublishingDialogWithActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity andCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
-<a name="l00454"></a>00454 
-<a name="l00456"></a>00456 <span class="comment">// * Use this function to detect if a dialog has already been loaded, so that you may cancel it.</span>
-<a name="l00457"></a>00457 <span class="comment">// **/</span>
-<a name="l00458"></a>00458 <span class="comment">//- (BOOL)isDialogLoaded;</span>
-<a name="l00466"></a>00466 <span class="comment"></span>
-<a name="l00476"></a>00476 - (void)signoutUserForProvider:(NSString*)provider;
-<a name="l00477"></a>00477 
-<a name="l00484"></a>00484 - (void)signoutUserForAllProviders;
-<a name="l00485"></a>00485 
-<a name="l00494"></a>00494 - (void)alwaysForceReauthentication:(BOOL)force;
-<a name="l00502"></a>00502 
-<a name="l00506"></a>00506 - (void)cancelAuthentication;
-<a name="l00507"></a>00507 
-<a name="l00511"></a>00511 - (void)cancelPublishing;
-<a name="l00519"></a>00519 
-<a name="l00526"></a>00526 - (void)updateTokenUrl:(NSString*)newTokenUrl;
-<a name="l00572"></a>00572 
-<a name="l00578"></a>00578 - (void)setCustomNavigationController:(UINavigationController*)navigationController;
-<a name="l00579"></a>00579 
-<a name="l00583"></a>00583 - (void)showAuthenticationDialogWithCustomInterface:(NSDictionary*)customizations;
-<a name="l00584"></a>00584 
-<a name="l00588"></a>00588 - (void)showSocialPublishingDialogWithActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity andCustomInterface:(NSDictionary*)customizations;
-<a name="l00589"></a>00589 <span class="comment">/*}*/</span>
-<a name="l00590"></a>00590 <span class="keyword">@end</span>
-<a name="l00591"></a>00591 
+<a name="l00379"></a>00379 - (void)showAuthenticationDialog;
+<a name="l00380"></a>00380 
+<a name="l00390"></a>00390 - (void)showAuthenticationDialogForProvider:(NSString*)provider;
+<a name="l00391"></a>00391 
+<a name="l00406"></a>00406 - (void)showAuthenticationDialogWithCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
+<a name="l00407"></a>00407 
+<a name="l00427"></a>00427 - (void)showAuthenticationDialogForProvider:(NSString*)provider
+<a name="l00428"></a>00428                withCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
+<a name="l00429"></a>00429 
+<a name="l00430"></a>00430 <span class="comment">//- (void)showAuthenticationDialogWithCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides</span>
+<a name="l00431"></a>00431 <span class="comment">//                            skippingReturningUserLandingPage:(BOOL)skipReturningUserLandingPage;</span>
+<a name="l00432"></a>00432 <span class="comment">//- (void)showAuthenticationDialogSkippingReturningUserLandingPage:(BOOL)skipReturningUserLandingPage;</span>
+<a name="l00433"></a>00433 <span class="comment">//- (void)showAuthenticationDialogWithForcedReauthenticationOnLastUsedProvider;</span>
+<a name="l00434"></a>00434 
+<a name="l00442"></a>00442 - (void)showSocialPublishingDialogWithActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity;
+<a name="l00443"></a>00443 
+<a name="l00462"></a>00462 - (void)showSocialPublishingDialogWithActivity:(<a class="code" href="interface_j_r_activity_object.html" title="An activity object you create, populate, and post to the user&amp;#39;s activity stream.">JRActivityObject</a>*)activity andCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
+<a name="l00463"></a>00463 
+<a name="l00464"></a>00464 <span class="comment">//- (BOOL)isDialogLoaded;</span>
+<a name="l00472"></a>00472 <span class="comment"></span>
+<a name="l00480"></a>00480 - (void)signoutUserForProvider:(NSString*)provider;
+<a name="l00481"></a>00481 
+<a name="l00486"></a>00486 - (void)signoutUserForAllProviders;
+<a name="l00487"></a>00487 
+<a name="l00496"></a>00496 - (void)alwaysForceReauthentication:(BOOL)force;
+<a name="l00504"></a>00504 
+<a name="l00508"></a>00508 - (void)cancelAuthentication;
+<a name="l00509"></a>00509 
+<a name="l00513"></a>00513 - (void)cancelPublishing;
+<a name="l00521"></a>00521 
+<a name="l00531"></a>00531 - (void)updateTokenUrl:(NSString*)tokenUrl;
+<a name="l00573"></a>00573 <span class="comment">//- (void)setCustomNavigationController:(UINavigationController*)navigationController;</span>
+<a name="l00574"></a>00574 <span class="comment">//- (void)showAuthenticationDialogWithCustomInterface:(NSDictionary*)customizations;</span>
+<a name="l00575"></a>00575 <span class="comment">//- (void)showSocialPublishingDialogWithActivity:(JRActivityObject*)activity andCustomInterface:(NSDictionary*)customizations;</span>
+<a name="l00576"></a>00576 <span class="keyword">@end</span>
+<a name="l00577"></a>00577 
 </pre></div></div>
 </div>
 <!-- doxygen footer -->

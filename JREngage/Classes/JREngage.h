@@ -27,24 +27,24 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
- File:	 JREngage.h
+ File:   JREngage.h
  Author: Lilli Szafranski - lilli@janrain.com, lillialexis@gmail.com
- Date:	 Tuesday, June 1, 2010
+ Date:   Tuesday, June 1, 2010
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**
- * @mainpage Janrain Engage for the iPhone, version 2
+ * @mainpage Janrain Engage for iOS, version 2
  *
  * <a href="http://rpxnow.com/docs/iphone">
- * The Janrain Engage for iPhone SDK</a> makes it easy to include third party authentication and
- * social publishing in your iPhone app.  This Objective-C library includes the same key
+ * The Janrain Engage for iOS SDK</a> makes it easy to include third party authentication and
+ * social publishing in your iPhone or iPad applications.  This Objective-C library includes the same key
  * features as our web version, as well as additional features created specifically for the mobile
  * platform. With as few as three lines of code, you can authenticate your users with their
  * accounts on Google, Yahoo!, Facebook, etc., and they can immediately publish their
  * activities to multiple social networks, including Facebook, Twitter, LinkedIn, MySpace,
  * and Yahoo, through one simple interface.
  *
- * Beyond authentication and social sharing, the latest release of the Engage for iPhone SDK
+ * Beyond authentication and social sharing, the latest release of the Engage for iOS SDK
  * now allows mobile apps to:
  *   - Share content, activities, game scores or invitations via Email or SMS
  *   - Customize the login experience by displaying native and social login options on the same screen
@@ -53,7 +53,7 @@
  *   - Provide an additional level of security with forced re-authentication when
  *     users are about to make a purchase or conduct a sensitive transaction
  *   - Configure and maintain separate lists of providers for mobile and web apps
- *   - Match the look and feel of the iPhone app with customizable background colors,
+ *   - Match the look and feel of the iPhone or iPAd app with customizable background colors,
  *     images, and navigation bar tints
  *
  * Before you begin, you need to have created a
@@ -196,11 +196,11 @@
  **/
 - (void)jrAuthenticationDidFailWithError:(NSError*)error forProvider:(NSString*)provider;
 
-/**
- * @deprecated
- * Please use jrAuthenticationDidReachTokenUrl:withResponse:andPayload:forProvider:() instead.
- **/
-- (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
+///**
+// * @deprecated
+// * Please use jrAuthenticationDidReachTokenUrl:withResponse:andPayload:forProvider:() instead.
+// **/
+//- (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
 
 /**
  * @anchor tokenUrlReached
@@ -291,14 +291,10 @@
 
 /**
  * @brief
- * Main API for interacting with the Janrain Engage for iPhone library
+ * Main API for interacting with the Janrain Engage for iOS library
  *
- * @sa
- * Use the JREngage object to authenticate a user with your application and
- * allow them to publish activities to their social networks.
- *
- * If you wish to include 3rd-Party Authentication and Social Publishing in your iPhone
- * application, you can use the JREngage class to achieve this.  Prior to using the JREngage
+ * If you wish to include 3rd-Party Authentication and Social Publishing in your iPhone or iPad
+ * applications, you can use the JREngage class to achieve this.  Prior to using the JREngage
  * library, you must already have an application on <a href="http://rpxnow.com">http://rpxnow.com</a>.
  * This is all that is required for basic authentication, although some providers may require extra
  * configuration (which can be done through your application's <a href="http://rpxnow.com/relying_parties">Dashboard</a>
@@ -307,17 +303,17 @@
  * If desired, you can optionally implement server-side authentication<span class="footnote">*</span>.
  * When provided, the JREngage library can post the user's authentication token to a url on your server:
  * the token url.  Your server can complete authentication, access more of JREngage's API, log the authentication, etc.
- * and the server's response will be passed back through to your iPhone application.
+ * and the server's response will be passed back through to your iOS application.
  *
- * <span class="footnote">*</span>In the previous version of the Engage for iPhone library, implementing token url that
+ * <span class="footnote">*</span>In the previous version of the Engage for iOS library, implementing token url that
  * completed server-side authentication was required. This is no longer the case, although you can optionally implement
  * the token url if you wish to continue authentication on your server.
  **/
 @interface JREngage : NSObject <JRSessionDelegate>
 {
-    JRUserInterfaceMaestro *interfaceMaestro;   /*< \internal Class that handles customizations to the library's UI */
-    JRSessionData	*sessionData;                 /*< \internal Holds configuration and state for the JREngage library */
-    NSMutableArray	*delegates;                 /*< \internal Array of JREngageDelegate objects */
+    JRUserInterfaceMaestro *_interfaceMaestro; /*< \internal Class that handles customizations to the library's UI */
+    JRSessionData          *_sessionData;      /*< \internal Holds configuration and state for the JREngage library */
+    NSMutableArray         *_delegates;        /*< \internal Array of JREngageDelegate objects */
 }
 
 /**
@@ -355,7 +351,7 @@
  *   The shared instance of the JREngage object initialized with the given
  *   appId, tokenUrl, and delegate.  If the given appId is nil, returns \e nil.
  **/
-+ (JREngage*)jrEngageWithAppId:(NSString*)appId andTokenUrl:(NSString*)tokenUrl delegate:(id<JREngageDelegate>)delegate;
++ (id)jrEngageWithAppId:(NSString*)appId andTokenUrl:(NSString*)tokenUrl delegate:(id<JREngageDelegate>)delegate;
 /*@}*/
 
 /**
@@ -397,6 +393,17 @@
 - (void)showAuthenticationDialog;
 
 /**
+ * Use this function to begin authentication for one specific provider.  The JREngage library will
+ * pop up a modal dialog, skipping the list of providers, and take the user straight to the sign-in
+ * flow of the passed provider.  The user will not be able to return to the list of providers.
+ *
+ * @param provider
+ *   The name of the provider on which the user will authenticate.  For a list of possible strings,
+ *   please see the \ref basicProviders "List of Providers"
+ **/
+- (void)showAuthenticationDialogForProvider:(NSString*)provider;
+
+/**
  * @anchor showAuthCustom
  *
  * Use this function to begin authentication.  The JREngage library will pop up a modal dialog,
@@ -413,6 +420,70 @@
  * values specified the dictionary passed into the setCustomInterfaceDefaults:() method.
  **/
 - (void)showAuthenticationDialogWithCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
+
+/**
+* Use this function to begin authentication.  The JREngage library will pop up a modal dialog, configured
+* with the given custom interface and skipping the list of providers, and take the user straight to the sign-in
+* flow of the passed provider.  The user will not be able to return to the list of providers.
+*
+* @param provider
+*   The name of the provider on which the user will authenticate.  For a list of possible strings,
+*   please see the \ref basicProviders "List of Providers"
+*
+* @param customInterfaceOverrides
+*   A dictionary of objects and properties, indexed by the set of
+*   \link customInterface pre-defined custom interface keys\endlink,
+*   to be used by the library to customize the look and feel of the user
+*   interface and/or add a native login experience
+*
+* @note
+* Any values specified in the \e customInterfaceOverrides dictionary will override the corresponding
+* values specified the dictionary passed into the setCustomInterfaceDefaults:() method.
+**/
+- (void)showAuthenticationDialogForProvider:(NSString*)provider
+               withCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides;
+
+///**
+// * Use this function to begin authentication.  The JREngage library will pop up a modal dialog,
+// * configured with the given custom interface, possibly skipping the user landing page,
+// * and take the user through the sign-in process.
+// *
+// * @param customInterfaceOverrides
+// *   A dictionary of objects and properties, indexed by the set of
+// *   \link customInterface pre-defined custom interface keys\endlink,
+// *   to be used by the library to customize the look and feel of the user
+// *   interface and/or add a native login experience
+// *
+// * @param skipReturningUserLandingPage
+// *   Prevents the dialog from opening to the returning-user landing page when \c YES.  That is, the
+// *   dialog will always open straight to the list of providers.  The dialog falls back to the default
+// *   behavior when \c NO
+// *
+// * @note
+// * Any values specified in the \e customInterfaceOverrides dictionary will override the corresponding
+// * values specified the dictionary passed into the setCustomInterfaceDefaults:() method.
+// *
+// * @note
+// * If you always want to force the user to re=enter his/her credentials, pass \c true to the method
+// * setAlwaysForceReauthentication().
+// **/
+//- (void)showAuthenticationDialogWithCustomInterfaceOverrides:(NSDictionary*)customInterfaceOverrides
+//                            skippingReturningUserLandingPage:(BOOL)skipReturningUserLandingPage;
+//
+///**
+// * Use this function to begin authentication.  The JREngage library will pop up a modal dialog and
+// * take the user through the sign-in process.
+// *
+// * @param skipReturningUserLandingPage
+// *   Prevents the dialog from opening to the returning-user landing page when \c YES.  That is, the
+// *   dialog will always open straight to the list of providers.  The dialog falls back to the default
+// *   behavior when \c NO
+// *
+// * @note
+// * If you always want to force the user to re=enter his/her credentials, pass \c true to the method
+// * setAlwaysForceReauthentication().
+// **/
+//- (void)showAuthenticationDialogSkippingReturningUserLandingPage:(BOOL)skipReturningUserLandingPage;
 
 ///**
 // *
@@ -520,10 +591,15 @@
 /**
  * @anchor updateTokenUrl
  *
- * Use this function to specify a different tokenUrl than the one with which you initiated
- * the library.
+ * Use this function to specify a different tokenUrl than the one with which you initiated the library.
+ * On this URL, you can continue any server-side authentication, and send your server's response back
+ * to the library.  The library will pass your server's response back to your application with the
+ * jrAuthenticationDidReachTokenUrl:withResponse:andPayload:forProvider:() method
+ *
+ * @param tokenUrl
+ *   The valid URL on your web server where the library will \e POST the authentication token
  **/
-- (void)updateTokenUrl:(NSString*)newTokenUrl;
+- (void)updateTokenUrl:(NSString*)tokenUrl;
 /*@}*/
 
 /**
@@ -546,6 +622,7 @@
 
 @anchor basicProviders
 @htmlonly
+<!-- Redundant attributes to force scrolling to work across multiple browsers -->
 <iframe id="basic" src="../mobile_providers?list=basic&device=iphone" width="100%" height="100%"
     style="border:none; overflow:hidden;" frameborder="0" scrolling="no">
   Your browser does not support iFrames.
@@ -564,28 +641,28 @@
  *
  **/
 
-/**
- * @name Deprecated
- * These keys have been deprecated in the current version of the JREngage library
- **/
-/*@{*/
-
-/**
- * @deprecated
- * This method has been deprecated. If you want to push the JREngage dialogs on your pass a pointer
- * to this object to the custom interface with the key define #kJRApplicationNavigationController.
- **/
-- (void)setCustomNavigationController:(UINavigationController*)navigationController;
-
-/**
- * @deprecated Please use showAuthenticationDialogWithCustomInterfaceOverrides:() instead.
- **/
-- (void)showAuthenticationDialogWithCustomInterface:(NSDictionary*)customizations;
-
-/**
- * @deprecated Please use showSocialPublishingDialogWithActivity:andCustomInterfaceOverrides:() instead.
- **/
-- (void)showSocialPublishingDialogWithActivity:(JRActivityObject*)activity andCustomInterface:(NSDictionary*)customizations;
-/*}*/
+///**
+// * @name Deprecated
+// * These keys have been deprecated in the current version of the JREngage library
+// **/
+///*@{*/
+//
+///**
+// * @deprecated
+// * This method has been deprecated. If you want to push the JREngage dialogs on your pass a pointer
+// * to this object to the custom interface with the key define #kJRApplicationNavigationController.
+// **/
+//- (void)setCustomNavigationController:(UINavigationController*)navigationController;
+//
+///**
+// * @deprecated Please use showAuthenticationDialogWithCustomInterfaceOverrides:() instead.
+// **/
+//- (void)showAuthenticationDialogWithCustomInterface:(NSDictionary*)customizations;
+//
+///**
+// * @deprecated Please use showSocialPublishingDialogWithActivity:andCustomInterfaceOverrides:() instead.
+// **/
+//- (void)showSocialPublishingDialogWithActivity:(JRActivityObject*)activity andCustomInterface:(NSDictionary*)customizations;
+///*}*/
 @end
 
