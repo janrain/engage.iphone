@@ -35,7 +35,11 @@
 @interface JRFollowers : NSObject <NSCopying, JRJsonifying>
 @property                   NSInteger followersId;
 @property (nonatomic, copy) NSString *identifier;  
+- (id)init;
+
 - (id)initWithIdentifier:(NSString *)newIdentifier;
++ (id)followers;
+
 + (id)followersWithIdentifier:(NSString *)identifier;
 + (id)followersObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

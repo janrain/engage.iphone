@@ -39,6 +39,10 @@
 @property (nonatomic, copy) NSString *userid;  
 @property (nonatomic, copy) NSString *username;  
 - (id)init;
+
+- (id)init;
++ (id)accounts;
+
 + (id)accounts;
 + (id)accountsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

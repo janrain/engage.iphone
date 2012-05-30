@@ -45,6 +45,10 @@
 @property (nonatomic, copy) NSString *streetAddress;  
 @property (nonatomic, copy) NSString *type;  
 - (id)init;
+
+- (id)init;
++ (id)location;
+
 + (id)location;
 + (id)locationObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

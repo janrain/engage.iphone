@@ -36,6 +36,10 @@
 @property                   NSInteger tvShowsId;
 @property (nonatomic, copy) NSString *tvShow;  
 - (id)init;
+
+- (id)init;
++ (id)tvShows;
+
 + (id)tvShows;
 + (id)tvShowsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

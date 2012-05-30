@@ -124,6 +124,14 @@
 @synthesize provider;
 @synthesize remote_key;
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+    }
+    return self;
+}
+
 - (id)initWithDomain:(NSString *)newDomain andIdentifier:(NSString *)newIdentifier
 {
     if (!newDomain || !newIdentifier)
@@ -138,6 +146,11 @@
         identifier = [newIdentifier copy];
     }
     return self;
+}
+
++ (id)profiles
+{
+    return [[[JRProfiles alloc] init] autorelease];
 }
 
 + (id)profilesWithDomain:(NSString *)domain andIdentifier:(NSString *)identifier
@@ -165,13 +178,15 @@
 + (id)profilesObjectFromDictionary:(NSDictionary*)dictionary
 {
     JRProfiles *profiles =
-        [JRProfiles profilesWithDomain:[dictionary objectForKey:@"domain"] andIdentifier:[dictionary objectForKey:@"identifier"]];
+        [JRProfiles profiles];
 
     profiles.profilesId = [(NSNumber*)[dictionary objectForKey:@"id"] intValue];
     profiles.accessCredentials = [dictionary objectForKey:@"accessCredentials"];
+    profiles.domain = [dictionary objectForKey:@"domain"];
     profiles.followers = [(NSArray*)[dictionary objectForKey:@"followers"] arrayOfFollowersObjectsFromFollowersDictionaries];
     profiles.following = [(NSArray*)[dictionary objectForKey:@"following"] arrayOfFollowingObjectsFromFollowingDictionaries];
     profiles.friends = [(NSArray*)[dictionary objectForKey:@"friends"] arrayOfFriendsObjectsFromFriendsDictionaries];
+    profiles.identifier = [dictionary objectForKey:@"identifier"];
     profiles.profile = [JRProfile profileObjectFromDictionary:(NSDictionary*)[dictionary objectForKey:@"profile"]];
     profiles.provider = [dictionary objectForKey:@"provider"];
     profiles.remote_key = [dictionary objectForKey:@"remote_key"];

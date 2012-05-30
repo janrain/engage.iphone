@@ -45,6 +45,7 @@
 
 @interface CaptureNewUserViewController ()
 @property (nonatomic, retain) NSMutableDictionary *engageUser;
+@property (nonatomic, retain) JRCaptureUser       *captureUser;
 @property (nonatomic, retain) UITextView          *firstResponder;
 @property (nonatomic, retain) NSDate              *myBirthdate;
 @end
@@ -56,12 +57,15 @@
 @synthesize myBirthdayPicker;
 @synthesize myPickerToolbar;
 @synthesize engageUser;
-@synthesize myAboutMeTextView;
+@synthesize myEmailTextView;
 @synthesize myPickerView;
 @synthesize myScrollView;
 @synthesize myKeyboardToolbar;
 @synthesize firstResponder;
 @synthesize myBirthdate;
+@synthesize captureUser;
+@synthesize myAboutMeTextView;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,13 +84,14 @@
     NSString *identifier = [user objectForKey:@"identifier"];
     self.engageUser      = [NSMutableDictionary dictionaryWithDictionary:
                                    [[[UserModel getUserModel] userProfiles] objectForKey:identifier]];
-
+    self.captureUser     = [[UserModel getUserModel] captureUser];
 
     [myPickerView setFrame:CGRectMake(0, 416, 320, 260)];
     [self.view addSubview:myPickerView];
 
-    [myAboutMeTextView setInputAccessoryView:myKeyboardToolbar];
+    [myEmailTextView setInputAccessoryView:myKeyboardToolbar];
     [myLocationTextView setInputAccessoryView:myKeyboardToolbar];
+    [myAboutMeTextView setInputAccessoryView:myKeyboardToolbar];
 }
 
 - (void)slidePickerUp
@@ -160,92 +165,61 @@
     [self setFirstResponder:nil];
 }
 
-- (void)updateUser
+- (void)populateCaptureUser
 {
-    JRCaptureUser *captureUser = [JRCaptureUser captureUser];
-
-//    JRProfiles *profilesObject = (JRProfiles *) [JRCapture captureProfilesObjectFromEngageAuthInfo:engageUser];
-
-    captureUser.aboutMe  = myAboutMeTextView.text;
-    captureUser.birthday = myBirthdate;
+    captureUser.email           = myEmailTextView.text;
     captureUser.currentLocation = myLocationTextView.text;
+    captureUser.aboutMe         = myAboutMeTextView.text;
+    captureUser.birthday        = myBirthdate;
 
     if (myGenderIdentitySegControl.selectedSegmentIndex == 0)
         captureUser.gender = @"female";
     else if (myGenderIdentitySegControl.selectedSegmentIndex == 1)
         captureUser.gender = @"male";
 
-    captureUser.email = [[engageUser objectForKey:@"profile"] objectForKey:@"email"];
+    NSMutableArray *newArray = [NSMutableArray arrayWithArray:captureUser.testerStringPlural];
 
-//    JRBooks *book1 = [JRBooks books];
-//    book1.book = @"fdadfafszadfas";
-//    book1.booksId = 178808;
-//
-//    JRBooks *book2 = [JRBooks books];
-//    book2.book = @"bar";
+    JRTesterStringPlural *firstNew  = [JRTesterStringPlural testerStringPlural];
+    JRTesterStringPlural *secondNew = [JRTesterStringPlural testerStringPlural];
+    JRTesterStringPlural *thirdNew  = [JRTesterStringPlural testerStringPlural];
 
-//    profilesObject.profile.books = [NSArray arrayWithObjects:book1, book2, nil];
-//    profilesObject.profilesId = 174721;
+    firstNew.stringPluralItem  = @"foo";
+    secondNew.stringPluralItem = @"bar";
+    thirdNew.stringPluralItem  = @"baz";
 
-//    if (profilesObject)
-//        captureUser.profiles = [NSArray arrayWithObject:profilesObject];
+    [newArray addObject:firstNew];
+    [newArray addObject:secondNew];
+    [newArray addObject:thirdNew];
 
-    [JRCaptureInterface updateCaptureUser:[captureUser dictionaryFromObject]
-                          withAccessToken:[[UserModel getUserModel] latestAccessToken]
-                              forDelegate:self];
+    captureUser.testerStringPlural = [NSArray arrayWithArray:newArray];
 }
 
 - (IBAction)doneButtonPressed:(id)sender
 {
     DLog(@"engageUser: %@", [engageUser description]);
 
-    if ([[UserModel getUserModel] latestAccessToken])
+    [self populateCaptureUser];
+
+    if ([[UserModel getUserModel] latestAccessToken] || [[UserModel getUserModel] isNewRecord])
     {
-        [self updateUser];
-        return;
+        [JRCaptureInterface updateCaptureUser:[captureUser dictionaryFromObject]
+                              withAccessToken:[[UserModel getUserModel] latestAccessToken]
+                                  forDelegate:self];
     }
-
-    JRCaptureUser *captureUser = [JRCaptureUser captureUser];
-
-    captureUser.aboutMe  = myAboutMeTextView.text;
-    captureUser.birthday = myBirthdate;
-    captureUser.currentLocation = myLocationTextView.text;
-
-    if (myGenderIdentitySegControl.selectedSegmentIndex == 0)
-        captureUser.gender = @"female";
-    else if (myGenderIdentitySegControl.selectedSegmentIndex == 1)
-        captureUser.gender = @"male";
-
-    captureUser.email = [[engageUser objectForKey:@"profile"] objectForKey:@"email"];
-
-    JRProfiles *profilesObject = (JRProfiles *) [JRCapture captureProfilesObjectFromEngageAuthInfo:engageUser];
-
-    JRBooks *book1 = [JRBooks books];
-    book1.book = @"foo";
-//    book1.booksId = [NSNumber numberWithInt:1];
-
-    JRBooks *book2 = [JRBooks books];
-    book2.book = @"bar";
-//    book2.booksId = [NSNumber numberWithInt:2];
-
-    profilesObject.profile.books = [NSArray arrayWithObjects:book1, book2, nil];
-
-    if (profilesObject)
-        captureUser.profiles = [NSArray arrayWithObject:profilesObject];
-
-    DLog(@"captureUser: %@", [[captureUser dictionaryFromObject] description]);
-
-    [JRCaptureInterface createCaptureUser:[captureUser dictionaryFromObject]
-                        withCreationToken:[[engageUser objectForKey:@"captureCredentials"] objectForKey:@"creation_token"]
-                              forDelegate:self];
+    else
+    {
+        [JRCaptureInterface createCaptureUser:[captureUser dictionaryFromObject]
+                            withCreationToken:[[engageUser objectForKey:@"captureCredentials"] objectForKey:@"creation_token"]
+                                  forDelegate:self];
+    }
 }
 
-#define LOCATION_TEXT_VIEW_TAG 10
 #define ABOUT_ME_TEXT_VIEW_TAG 20
-
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    textView.textColor = [UIColor blackColor];
+
     self.firstResponder = textView;
     if (textView.tag == ABOUT_ME_TEXT_VIEW_TAG)
     {
@@ -264,59 +238,52 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView { return YES; }
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView { return YES; }
 
-
-- (void)createCaptureUserDidSucceedWithResult:(NSString *)result
+- (void)handleSuccessfulResult:(NSString *)result withMessage:(NSString *)message
 {
     DLog(@"%@", result);
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Success"
-                                                     message:@"Profile created"
+                                                     message:message
                                                     delegate:nil
                                            cancelButtonTitle:nil
                                            otherButtonTitles:@"OK", nil] autorelease];
     [alert show];
 
-    [[UserModel getUserModel] addCaptureUserFromCaptureResult:result];
+    [[UserModel getUserModel] updateCaptureUserFromCaptureResult:result];
 
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)handleFailedResult:(NSString *)result withMessage:(NSString *)message
+{
+    DLog(@"%@", result);
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Failure"
+                                                     message:message
+                                                    delegate:nil
+                                           cancelButtonTitle:@"Dismiss"
+                                           otherButtonTitles:nil] autorelease];
+    [alert show];
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)createCaptureUserDidSucceedWithResult:(NSString *)result
+{
+    [self handleSuccessfulResult:result withMessage:@"Profile created"];
 }
 
 - (void)createCaptureUserDidFailWithResult:(NSString *)result
 {
-    DLog(@"%@", result);
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Failure"
-                                                     message:@"Profile not created"
-                                                    delegate:nil
-                                           cancelButtonTitle:@"Dismiss"
-                                           otherButtonTitles:nil] autorelease];
-    [alert show];
-
-    [self.navigationController popViewControllerAnimated:YES];
+    [self handleFailedResult:result withMessage:@"Profile not created"];
 }
 
 - (void)updateCaptureUserDidSucceedWithResult:(NSString *)result
 {
-    DLog(@"%@", result);
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Success"
-                                                     message:@"Profile updated"
-                                                    delegate:nil
-                                           cancelButtonTitle:nil
-                                           otherButtonTitles:@"OK", nil] autorelease];
-    [alert show];
-
-    [self.navigationController popViewControllerAnimated:YES];
+    [self handleSuccessfulResult:result withMessage:@"Profile updated"];
 }
 
 - (void)updateCaptureUserDidFailWithResult:(NSString *)result
 {
-    DLog(@"%@", result);
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Failure"
-                                                     message:@"Profile not updated"
-                                                    delegate:nil
-                                           cancelButtonTitle:@"Dismiss"
-                                           otherButtonTitles:nil] autorelease];
-    [alert show];
-
-    [self.navigationController popViewControllerAnimated:YES];
+    [self handleFailedResult:result withMessage:@"Profile not updated"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -335,13 +302,15 @@
     [myBirthdayButton release];
     [myBirthdayPicker release];
     [myPickerToolbar release];
-    [myAboutMeTextView release];
+    [myEmailTextView release];
     [myPickerView release];
     [myScrollView release];
     [myKeyboardToolbar release];
     [firstResponder release];
     [engageUser release];
     [myBirthdate release];
+    [captureUser release];
+    [myAboutMeTextView release];
     [super dealloc];
 }
 @end

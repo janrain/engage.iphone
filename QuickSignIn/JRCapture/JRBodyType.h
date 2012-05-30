@@ -39,6 +39,10 @@
 @property (nonatomic, copy) NSString *hairColor;  
 @property (nonatomic, copy) NSNumber *height;  
 - (id)init;
+
+- (id)init;
++ (id)bodyType;
+
 + (id)bodyType;
 + (id)bodyTypeObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

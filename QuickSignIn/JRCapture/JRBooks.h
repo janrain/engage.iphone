@@ -36,6 +36,10 @@
 @property                   NSInteger booksId;
 @property (nonatomic, copy) NSString *book;  
 - (id)init;
+
+- (id)init;
++ (id)books;
+
 + (id)books;
 + (id)booksObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

@@ -35,6 +35,14 @@
 @synthesize followingId;
 @synthesize identifier;
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+    }
+    return self;
+}
+
 - (id)initWithIdentifier:(NSString *)newIdentifier
 {
     if (!newIdentifier)
@@ -48,6 +56,11 @@
         identifier = [newIdentifier copy];
     }
     return self;
+}
+
++ (id)following
+{
+    return [[[JRFollowing alloc] init] autorelease];
 }
 
 + (id)followingWithIdentifier:(NSString *)identifier
@@ -68,9 +81,10 @@
 + (id)followingObjectFromDictionary:(NSDictionary*)dictionary
 {
     JRFollowing *following =
-        [JRFollowing followingWithIdentifier:[dictionary objectForKey:@"identifier"]];
+        [JRFollowing following];
 
     following.followingId = [(NSNumber*)[dictionary objectForKey:@"id"] intValue];
+    following.identifier = [dictionary objectForKey:@"identifier"];
 
     return following;
 }

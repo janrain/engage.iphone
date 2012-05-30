@@ -36,6 +36,10 @@
 @property                   NSInteger carsId;
 @property (nonatomic, copy) NSString *car;  
 - (id)init;
+
+- (id)init;
++ (id)cars;
+
 + (id)cars;
 + (id)carsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

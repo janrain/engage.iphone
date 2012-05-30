@@ -36,6 +36,10 @@
 @property                   NSInteger moviesId;
 @property (nonatomic, copy) NSString *movie;  
 - (id)init;
+
+- (id)init;
++ (id)movies;
+
 + (id)movies;
 + (id)moviesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

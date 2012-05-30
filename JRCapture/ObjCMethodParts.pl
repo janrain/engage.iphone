@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # Copyright (c) 2012, Janrain, Inc.
 #
@@ -32,11 +34,48 @@
 # Date:   Wednesday, February 8, 2012
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-#!/usr/bin/perl
-
 ###################################################################
 # OBJC METHODS TO BE POPULATED WITH PROPERTIES
 ###################################################################
+
+###################################################################
+# MINIMUM INSTANCE CONSTRUCTOR (W/O REQUIRED PROPERTIES)
+#
+# - (id)init
+# {                                                              
+#     if ((self = [super init]))                                 
+#     {     
+#     }
+#
+#     return self;
+# }
+###################################################################
+
+my @minConstructorParts = (
+"- (id)init",
+"\n{\n",
+"    if ((self = [super init]))
+    {\n",
+    "",
+"    }
+    return self;
+}\n\n");
+
+
+###################################################################
+# MINIMUN CLASS CONSTRUCTOR (W/O REQUIRED PROPERTIES)
+#
+# + (id)<objectName>    
+# {                                             
+#     return [[[<className> alloc] init] autorelease]; 
+# }
+###################################################################
+
+my @minClassConstructorParts = (
+"+ (id)","",
+"\n{\n",
+"    return [[[",""," alloc] init] autorelease];",
+"\n}\n\n"); 
 
 
 ###################################################################
@@ -285,6 +324,15 @@ sub createArrayCategoryForSubobject {
        "    return filteredDictionaryArray;\n}\n\@end\n\n";
 
   return "$arrayCategoryIntf$arrayCategoryImpl";
+}
+
+
+sub getMinConstructorParts {
+  return @minConstructorParts;
+}
+
+sub getMinClassConstructorParts {
+  return @minClassConstructorParts;
 }
 
 sub getConstructorParts {

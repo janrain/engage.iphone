@@ -224,7 +224,8 @@ typedef enum CaptureInterfaceStatEnum
     [body appendData:[[NSString stringWithFormat:@"type_name=%@", entityTypeName] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"&attributes=%@", attributes] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"&access_token=%@", captureAccessToken] dataUsingEncoding:NSUTF8StringEncoding]];
-
+    [body appendData:[@"&include_record=true" dataUsingEncoding:NSUTF8StringEncoding]];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:
                                      [NSURL URLWithString:
                                       [NSString stringWithFormat:@"%@/entity.update", captureDomain]]];

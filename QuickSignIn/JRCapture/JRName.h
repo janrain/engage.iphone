@@ -40,6 +40,10 @@
 @property (nonatomic, copy) NSString *honorificSuffix;  
 @property (nonatomic, copy) NSString *middleName;  
 - (id)init;
+
+- (id)init;
++ (id)name;
+
 + (id)name;
 + (id)nameObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

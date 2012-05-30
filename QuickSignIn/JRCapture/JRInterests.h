@@ -36,6 +36,10 @@
 @property                   NSInteger interestsId;
 @property (nonatomic, copy) NSString *interest;  
 - (id)init;
+
+- (id)init;
++ (id)interests;
+
 + (id)interests;
 + (id)interestsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

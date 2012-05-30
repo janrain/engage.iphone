@@ -35,6 +35,14 @@
 @synthesize followersId;
 @synthesize identifier;
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+    }
+    return self;
+}
+
 - (id)initWithIdentifier:(NSString *)newIdentifier
 {
     if (!newIdentifier)
@@ -48,6 +56,11 @@
         identifier = [newIdentifier copy];
     }
     return self;
+}
+
++ (id)followers
+{
+    return [[[JRFollowers alloc] init] autorelease];
 }
 
 + (id)followersWithIdentifier:(NSString *)identifier
@@ -68,9 +81,10 @@
 + (id)followersObjectFromDictionary:(NSDictionary*)dictionary
 {
     JRFollowers *followers =
-        [JRFollowers followersWithIdentifier:[dictionary objectForKey:@"identifier"]];
+        [JRFollowers followers];
 
     followers.followersId = [(NSNumber*)[dictionary objectForKey:@"id"] intValue];
+    followers.identifier = [dictionary objectForKey:@"identifier"];
 
     return followers;
 }

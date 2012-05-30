@@ -36,6 +36,10 @@
 @property                   NSInteger heroesId;
 @property (nonatomic, copy) NSString *hero;  
 - (id)init;
+
+- (id)init;
++ (id)heroes;
+
 + (id)heroes;
 + (id)heroesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

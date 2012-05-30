@@ -49,6 +49,9 @@
 - (void)loadSignedInUser;
 - (void)finishSignUserIn:(NSDictionary *)user;
 - (void)finishSignUserOut;
+
+@property(readwrite) BOOL isNewRecord;
+
 @end
 
 @implementation UserModel
@@ -64,6 +67,9 @@
 @synthesize pendingCallToTokenUrl;
 @synthesize libraryDialogDelegate;
 @synthesize latestAccessToken;
+@synthesize captureUser;
+@synthesize isNewRecord;
+
 
 /* Singleton instance of UserModel */
 static UserModel *singleton = nil;
@@ -394,6 +400,11 @@ otherwise, this happens automatically.                                          
     displayName     = [[currentUser objectForKey:@"displayName"] retain];
     currentProvider = [[currentUser objectForKey:@"provider"] retain];
 
+    NSDictionary *captureUserDict = [[[self userProfiles] objectForKey:identifier] objectForKey:@"captureProfile"];
+
+    if (captureUserDict)
+        self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureUserDict];
+
  /* Then check the cookies to make sure the saved user's identifier matches any cookie returned from
     the token URL, or if their session has expired */
     NSHTTPCookieStorage* cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -429,7 +440,7 @@ otherwise, this happens automatically.                                          
     return;
 }
 
-- (void)addCaptureUserFromCaptureResult:(NSString *)captureResult
+- (void)updateCaptureUserFromCaptureResult:(NSString *)captureResult
 {
     DLog(@"");
 
@@ -438,19 +449,20 @@ otherwise, this happens automatically.                                          
     NSMutableDictionary *userProfile = [NSMutableDictionary dictionaryWithDictionary:
                                                    [newProfiles objectForKey:
                                                                [currentUser objectForKey:@"identifier"]]];
-    NSDictionary        *captureDictionary  = [captureResult objectFromJSONString];
+
+    NSDictionary *captureDictionary  = [captureResult objectFromJSONString];
 
     if (!captureDictionary)
     {
-        ALog(@"Unable to parse token URL response: %@", captureResult);
-        return; // TODO: Better error handling (Add a GOTO?)
+        ALog(@"Unable to parse Capture response: %@", captureResult);
+        return;
     }
 
-    NSString     *captureAccessToken   = [captureDictionary objectForKey:@"access_token"];
+    NSString     *captureAccessToken = [captureDictionary objectForKey:@"access_token"];
     NSDictionary *captureCredentials;
 
-    // TODO: Temp test for Cypress
     self.latestAccessToken = captureAccessToken;
+    self.isNewRecord = false;
 
     if (captureAccessToken)
         captureCredentials = [NSDictionary dictionaryWithObject:captureAccessToken
@@ -459,8 +471,10 @@ otherwise, this happens automatically.                                          
         captureCredentials = nil;
 
     NSDictionary *captureProfile = nil;
-    if (captureDemo && captureAccessToken)
+    if (captureDemo)// && captureAccessToken)
         captureProfile = [self nullWalker:[captureDictionary objectForKey:@"result"]];
+
+    self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureProfile];
 
     if (captureProfile)
         [userProfile setObject:captureProfile forKey:@"captureProfile"];
@@ -469,9 +483,6 @@ otherwise, this happens automatically.                                          
 
     [newProfiles setObject:userProfile forKey:[currentUser objectForKey:@"identifier"]];
     [prefs setObject:newProfiles forKey:@"userProfiles"];
-
-//    [tokenUrlDelegate didReachTokenUrl];
-//    [tokenUrlDelegate release], tokenUrlDelegate = nil;
 }
 
 
@@ -682,7 +693,7 @@ otherwise, this happens automatically.                                          
 }
 
 - (void)jrAuthenticationDidReachTokenUrl:(NSString*)tokenUrl withResponse:(NSURLResponse*)response
-                              andPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider;
+                              andPayload:(NSData*)tokenUrlPayload forProvider:(NSString*)provider
 {
     DLog(@"");
 
@@ -696,17 +707,15 @@ otherwise, this happens automatically.                                          
         ALog(@"Unable to parse token URL response: %@", payload);
         [self finishSignUserIn:authInfo]; // call this to keep avoid missing data in user registry
         return;
-        // TODO: Better error handling (Add a GOTO)
-        //exit(1);
     }
 
     NSString     *captureAccessToken   = [payloadDict objectForKey:@"access_token"];
     NSString     *captureCreationToken = [payloadDict objectForKey:@"creation_token"];
     NSDictionary *captureCredentials;
 
-    // TODO: Temp test for Cypress
     self.latestAccessToken = captureAccessToken;
 
+    self.isNewRecord = [(NSNumber *)[payloadDict objectForKey:@"is_new"] boolValue];
 
     if (captureAccessToken)
         captureCredentials = [NSDictionary dictionaryWithObject:captureAccessToken
@@ -718,14 +727,10 @@ otherwise, this happens automatically.                                          
         captureCredentials = nil;
 
     NSDictionary *captureProfile = nil;
-    if (captureDemo && captureAccessToken)
+    if (captureDemo)// && captureAccessToken)
         captureProfile = [self nullWalker:[payloadDict objectForKey:@"capture_user"]];
 
-//    JRCaptureUser *captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureProfile];
-
-//    captureProfile = captureProfile ?
-//            [self nullWalker:captureProfile]
-//            : nil;
+    self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureProfile];
 
     if (captureProfile)
         [authInfo setObject:captureProfile forKey:@"captureProfile"];
@@ -741,7 +746,7 @@ otherwise, this happens automatically.                                          
     pendingCallToTokenUrl = NO;
 
     // TODO: Fix this delegation crap; maybe add show stuff to didReachTokenUrl or something
-    if (captureCreationToken)
+    if (captureCreationToken || isNewRecord)
         if ([tokenUrlDelegate respondsToSelector:@selector(showCaptureScreen)])
                 [tokenUrlDelegate showCaptureScreen];
 

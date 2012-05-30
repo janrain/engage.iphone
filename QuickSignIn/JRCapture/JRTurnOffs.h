@@ -36,6 +36,10 @@
 @property                   NSInteger turnOffsId;
 @property (nonatomic, copy) NSString *turnOff;  
 - (id)init;
+
+- (id)init;
++ (id)turnOffs;
+
 + (id)turnOffs;
 + (id)turnOffsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

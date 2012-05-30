@@ -35,7 +35,11 @@
 @interface JRFriends : NSObject <NSCopying, JRJsonifying>
 @property                   NSInteger friendsId;
 @property (nonatomic, copy) NSString *identifier;  
+- (id)init;
+
 - (id)initWithIdentifier:(NSString *)newIdentifier;
++ (id)friends;
+
 + (id)friendsWithIdentifier:(NSString *)identifier;
 + (id)friendsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

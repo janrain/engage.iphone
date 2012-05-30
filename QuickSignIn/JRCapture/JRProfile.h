@@ -125,6 +125,10 @@
 @property (nonatomic, copy) NSArray *urls; /* This is an array of JRUrls */ 
 @property (nonatomic, copy) NSString *utcOffset;  
 - (id)init;
+
+- (id)init;
++ (id)profile;
+
 + (id)profile;
 + (id)profileObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

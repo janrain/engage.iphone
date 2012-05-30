@@ -36,6 +36,10 @@
 @property                   NSInteger languagesSpokenId;
 @property (nonatomic, copy) NSString *languageSpoken;  
 - (id)init;
+
+- (id)init;
++ (id)languagesSpoken;
+
 + (id)languagesSpoken;
 + (id)languagesSpokenObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

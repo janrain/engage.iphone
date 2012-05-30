@@ -35,6 +35,14 @@
 @synthesize friendsId;
 @synthesize identifier;
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+    }
+    return self;
+}
+
 - (id)initWithIdentifier:(NSString *)newIdentifier
 {
     if (!newIdentifier)
@@ -48,6 +56,11 @@
         identifier = [newIdentifier copy];
     }
     return self;
+}
+
++ (id)friends
+{
+    return [[[JRFriends alloc] init] autorelease];
 }
 
 + (id)friendsWithIdentifier:(NSString *)identifier
@@ -68,9 +81,10 @@
 + (id)friendsObjectFromDictionary:(NSDictionary*)dictionary
 {
     JRFriends *friends =
-        [JRFriends friendsWithIdentifier:[dictionary objectForKey:@"identifier"]];
+        [JRFriends friends];
 
     friends.friendsId = [(NSNumber*)[dictionary objectForKey:@"id"] intValue];
+    friends.identifier = [dictionary objectForKey:@"identifier"];
 
     return friends;
 }

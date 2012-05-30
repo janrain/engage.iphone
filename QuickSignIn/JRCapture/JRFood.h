@@ -36,6 +36,10 @@
 @property                   NSInteger foodId;
 @property (nonatomic, copy) NSString *food;  
 - (id)init;
+
+- (id)init;
++ (id)food;
+
 + (id)food;
 + (id)foodObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

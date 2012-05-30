@@ -47,7 +47,11 @@
 @property (nonatomic, copy) JRProfile *profile;  
 @property (nonatomic, copy) NSObject *provider; /* This is a property of type 'json', and therefore can be an NSDictionary, NSArray, NSString, etc. */ 
 @property (nonatomic, copy) NSString *remote_key;  
+- (id)init;
+
 - (id)initWithDomain:(NSString *)newDomain andIdentifier:(NSString *)newIdentifier;
++ (id)profiles;
+
 + (id)profilesWithDomain:(NSString *)domain andIdentifier:(NSString *)identifier;
 + (id)profilesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

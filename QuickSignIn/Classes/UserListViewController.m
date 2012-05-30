@@ -112,7 +112,7 @@ Copyright (c) 2010, Janrain, Inc.
     [myRightView addSubview:userDetailsViewController.view];
 
     mySignOutButtonPad =
-    [[UIBarButtonItem alloc] initWithTitle:@"Sign Out"
+    [[UIBarButtonItem alloc] initWithTitle:@"Update Current User"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
                                     action:@selector(signOutButtonPressed:)];
@@ -266,7 +266,7 @@ Copyright (c) 2010, Janrain, Inc.
     }
     else
     {
-        [self setSignOutButtonTitle:@"Sign Out"];
+        [self setSignOutButtonTitle:@"Update Current User"];
         [self toggleTableHeaderVisibility:NO];
     }
 
@@ -502,33 +502,33 @@ Copyright (c) 2010, Janrain, Inc.
 
 - (IBAction)signOutButtonPressed:(id)sender
 {
-
     // TODO: Temporarily here for testing
-//    CaptureNewUserViewController *viewController= [[[CaptureNewUserViewController alloc] initWithNibName:@"CaptureNewUserViewController"
-//                                                                  bundle:[NSBundle mainBundle]] autorelease];
+    CaptureNewUserViewController *viewController =
+                [[[CaptureNewUserViewController alloc] initWithNibName:@"CaptureNewUserViewController"
+                                                                bundle:[NSBundle mainBundle]] autorelease];
+
+    [self.navigationController pushViewController:viewController animated:YES];
+
+//    [JRCaptureInterface getCaptureEntityNamed:@"profiles"
+//                                 withEntityId:174721
+//                               andAccessToken:[[UserModel getUserModel] latestAccessToken]
+//                                  forDelegate:self];
 //
-//    [self.navigationController pushViewController:viewController animated:YES];
-//
-////    [JRCaptureInterface getCaptureEntityNamed:@"profiles"
-////                                 withEntityId:174721
-////                               andAccessToken:[[UserModel getUserModel] latestAccessToken]
-////                                  forDelegate:self];
-////
-////    [JRCaptureInterface getCaptureUserWithAccessToken:[[UserModel getUserModel] latestAccessToken]
-////                                          forDelegate:self];
+//    [JRCaptureInterface getCaptureUserWithAccessToken:[[UserModel getUserModel] latestAccessToken]
+//                                          forDelegate:self];
     // TODO: Remove when done
 
-    [self clearSelectedProfile];
-
-    if ([[UserModel getUserModel] currentUser])
-    {
-        myNotSignedInLabel.text = @"You are not currently signed in.";
-        [[UserModel getUserModel] startSignUserOut:self];
-    }
-    else
-    {
-        [[self navigationController] popToRootViewControllerAnimated:YES];
-    }
+//    [self clearSelectedProfile];
+//
+//    if ([[UserModel getUserModel] currentUser])
+//    {
+//        myNotSignedInLabel.text = @"You are not currently signed in.";
+//        [[UserModel getUserModel] startSignUserOut:self];
+//    }
+//    else
+//    {
+//        [[self navigationController] popToRootViewControllerAnimated:YES];
+//    }
 }
 
 - (void)updateCaptureUserDidFailWithResult:(NSString *)result
@@ -564,7 +564,7 @@ Copyright (c) 2010, Janrain, Inc.
     [myTableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
 
     [UIView beginAnimations:@"fade" context:nil];
-    [self setSignOutButtonTitle:@"Sign Out"];
+    [self setSignOutButtonTitle:@"Update Current User"];
     [self toggleTableHeaderVisibility:NO];
     [UIView commitAnimations];
 }
@@ -793,14 +793,12 @@ Copyright (c) 2010, Janrain, Inc.
 
 - (void)showCaptureScreen
 {
-    CaptureNewUserViewController *viewController = nil;
-
     if (iPad)
-        ;//viewController = [[[CaptureNewUserViewController alloc] initWithNibName:@"CaptureNewUserViewController-iPad"
-         //                                                             bundle:[NSBundle mainBundle]] autorelease];
-    else
-        viewController = [[[CaptureNewUserViewController alloc] initWithNibName:@"CaptureNewUserViewController"
-                                                                         bundle:[NSBundle mainBundle]] autorelease];
+        return;
+
+    CaptureNewUserViewController *viewController =
+                    [[[CaptureNewUserViewController alloc] initWithNibName:@"CaptureNewUserViewController"
+                                                                    bundle:[NSBundle mainBundle]] autorelease];
 
     [self.navigationController pushViewController:viewController animated:YES];
 }

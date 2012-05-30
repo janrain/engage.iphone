@@ -40,6 +40,8 @@
         UIAlertViewDelegate>
 {
     NSMutableDictionary *engageUser;
+    JRCaptureUser       *captureUser;
+
     UIScrollView *myScrollView;
 
     NSDate       *myBirthdate;
@@ -50,11 +52,12 @@
     UIView       *myPickerView;
 }
 @property (nonatomic, retain) IBOutlet UITextView         *myLocationTextView;
+@property (nonatomic, retain) IBOutlet UITextView         *myAboutMeTextView;
+@property (nonatomic, retain) IBOutlet UITextView         *myEmailTextView;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *myGenderIdentitySegControl;
 @property (nonatomic, retain) IBOutlet UIButton           *myBirthdayButton;
 @property (nonatomic, retain) IBOutlet UIDatePicker       *myBirthdayPicker;
 @property (nonatomic, retain) IBOutlet UIToolbar          *myPickerToolbar;
-@property (nonatomic, retain) IBOutlet UITextView         *myAboutMeTextView;
 @property (nonatomic, retain) IBOutlet UIView             *myPickerView;
 @property (nonatomic, retain) IBOutlet UIScrollView       *myScrollView;
 @property (nonatomic, retain) IBOutlet UIToolbar          *myKeyboardToolbar;

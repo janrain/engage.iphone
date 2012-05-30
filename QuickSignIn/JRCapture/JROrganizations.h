@@ -45,6 +45,10 @@
 @property (nonatomic, copy) NSString *title;  
 @property (nonatomic, copy) NSString *type;  
 - (id)init;
+
+- (id)init;
++ (id)organizations;
+
 + (id)organizations;
 + (id)organizationsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

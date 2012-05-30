@@ -36,6 +36,7 @@
 @synthesize address2;
 @synthesize city;
 @synthesize company;
+@synthesize country;
 @synthesize mobile;
 @synthesize phone;
 @synthesize stateAbbreviation;
@@ -64,6 +65,7 @@
     primaryAddressCopy.address2 = self.address2;
     primaryAddressCopy.city = self.city;
     primaryAddressCopy.company = self.company;
+    primaryAddressCopy.country = self.country;
     primaryAddressCopy.mobile = self.mobile;
     primaryAddressCopy.phone = self.phone;
     primaryAddressCopy.stateAbbreviation = self.stateAbbreviation;
@@ -82,6 +84,7 @@
     primaryAddress.address2 = [dictionary objectForKey:@"address2"];
     primaryAddress.city = [dictionary objectForKey:@"city"];
     primaryAddress.company = [dictionary objectForKey:@"company"];
+    primaryAddress.country = [dictionary objectForKey:@"country"];
     primaryAddress.mobile = [dictionary objectForKey:@"mobile"];
     primaryAddress.phone = [dictionary objectForKey:@"phone"];
     primaryAddress.stateAbbreviation = [dictionary objectForKey:@"stateAbbreviation"];
@@ -107,6 +110,9 @@
 
     if (company)
         [dict setObject:company forKey:@"company"];
+
+    if (country)
+        [dict setObject:country forKey:@"country"];
 
     if (mobile)
         [dict setObject:mobile forKey:@"mobile"];
@@ -140,6 +146,9 @@
     if ([dictionary objectForKey:@"company"])
         self.company = [dictionary objectForKey:@"company"];
 
+    if ([dictionary objectForKey:@"country"])
+        self.country = [dictionary objectForKey:@"country"];
+
     if ([dictionary objectForKey:@"mobile"])
         self.mobile = [dictionary objectForKey:@"mobile"];
 
@@ -162,6 +171,7 @@
     [address2 release];
     [city release];
     [company release];
+    [country release];
     [mobile release];
     [phone release];
     [stateAbbreviation release];

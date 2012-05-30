@@ -120,8 +120,10 @@
 @property            BOOL pendingCallToTokenUrl;
 
 @property (readonly) BOOL loadingUserData;
-@property (readonly) NSDictionary *currentUser;
-@property (retain)   NSDictionary *selectedUser;
+@property (readonly) BOOL isNewRecord;
+@property (readonly) NSDictionary  *currentUser;
+@property (retain)   NSDictionary  *selectedUser;
+@property (retain)   JRCaptureUser *captureUser;
 @property (retain)   NSMutableDictionary *authInfo;
 @property (retain)   NSMutableDictionary *customInterface;
 @property (retain)   UINavigationController *navigationController;
@@ -154,7 +156,7 @@
 - (void)startSignUserOut:(id<UserModelDelegate>)interestedParty;
 
 - (void)triggerAuthenticationDidCancel:(id)sender;
-- (void)addCaptureUserFromCaptureResult:(NSString *)captureResult;
+- (void)updateCaptureUserFromCaptureResult:(NSString *)captureResult;
 //- (void)setNavigationController:(UINavigationController*)navigationController;
 
 /* Returns singleton instance of class. */
