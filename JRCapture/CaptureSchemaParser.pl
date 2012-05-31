@@ -498,29 +498,35 @@ sub recursiveParse {
       # e.g., foo = [newFoo copy];
       $constructorSection[8] .= "        " . $propertyName . " = [new" . ucfirst($propertyName) . " copy];\n";
       
-      if (!$isReadOnly) {
-
-        ##########################################################################
-        # Object ids needs to be serialized/deserialized with the key 'id', even 
-        # though that's not what the propertyName is
-        ##########################################################################
-        if ($isIdName) {
-          # e.g., [dict setObject:fooId forKey:@"id"];
-          $makeDictionarySection[3] .= "    [dict setObject:" . $toDictionary . " forKey:\@\"id\"];\n";
-        } else {
-          # e.g., [dict setObject:foo forKey:@"foo"];
-          $makeDictionarySection[3] .= "    [dict setObject:" . $toDictionary . " forKey:\@\"" . $propertyName . "\"];\n";
-        }
-      
-      }
+#       if (!$isReadOnly) {
+# 
+#         ##########################################################################
+#         # Object ids needs to be serialized/deserialized with the key 'id', even 
+#         # though that's not what the propertyName is
+#         ##########################################################################
+#         if ($isIdName) {
+#           # e.g., [dict setObject:fooId forKey:@"id"];
+#           $makeDictionarySection[3] .= "    [dict setObject:" . $toDictionary . " forKey:\@\"id\"];\n";
+#         } else {
+#           # e.g., [dict setObject:foo forKey:@"foo"];
+#           $makeDictionarySection[3] .= "    [dict setObject:" . $toDictionary . " forKey:\@\"" . $propertyName . "\"];\n";
+#         }
+#       
+#       }
             
     } else {
     ######################################################
     # If the property is *not* required...
     ######################################################
 
+      # e.g., objCopy.baz = self.baz;
+      $copyConstructorSection[6] .= "    " . $objectName . "Copy." . $propertyName . " = self." . $propertyName . ";\n";        
+    }
+    ##########################################################################
+    # For *all* properties...
+    ##########################################################################
+
       if (!$isReadOnly) {
-      
         # e.g., if (baz)
         $makeDictionarySection[4] .= "\n    if (" . $propertyName . ")\n";
   
@@ -536,13 +542,6 @@ sub recursiveParse {
           $makeDictionarySection[4] .= "        [dict setObject:" . $toDictionary . " forKey:\@\"" . $propertyName . "\"];\n";
         }      
       }
-
-      # e.g., objCopy.baz = self.baz;
-      $copyConstructorSection[6] .= "    " . $objectName . "Copy." . $propertyName . " = self." . $propertyName . ";\n";        
-    }
-    ##########################################################################
-    # For *all* properties...
-    ##########################################################################
 
       # e.g., obj.baz = [dictionary objectForKey:@"baz"];
       $makeObjectSection[8] .= "\n    " . $objectName . "." . $propertyName . " = " . $frDictionary . ";";
@@ -599,9 +598,13 @@ sub recursiveParse {
   $hFile .= "\@interface $className : NSObject <NSCopying, JRJsonifying>\n";
   $hFile .= $propertiesSection;
   $hFile .= "$minConstructorSection[0];\n\n";
-  $hFile .= "$constructorSection[0]$constructorSection[1];\n";
   $hFile .= "$minClassConstructorSection[0]$minClassConstructorSection[1];\n\n";
-  $hFile .= "$classConstructorSection[0]$classConstructorSection[1]$classConstructorSection[2];\n";
+  
+  if ($requiredProperties) {
+    $hFile .= "$constructorSection[0]$constructorSection[1];\n";
+    $hFile .= "$classConstructorSection[0]$classConstructorSection[1]$classConstructorSection[2];\n";
+  }
+  
   $hFile .= "$makeObjectSection[0]$makeObjectSection[1]$makeObjectSection[2];\n";
   $hFile .= "$updateObjectSection[0];\n";
   $hFile .= "\@end\n";

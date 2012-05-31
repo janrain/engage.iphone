@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *tag;  
 - (id)init;
 
-- (id)init;
 + (id)tags;
 
-+ (id)tags;
 + (id)tagsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

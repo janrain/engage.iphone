@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *relationship;  
 - (id)init;
 
-- (id)init;
 + (id)relationships;
 
-+ (id)relationships;
 + (id)relationshipsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

@@ -366,7 +366,6 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:10];
 
-    [dict setObject:email forKey:@"email"];
 
     if (captureUserId)
         [dict setObject:[NSNumber numberWithInt:captureUserId] forKey:@"id"];
@@ -385,6 +384,9 @@
 
     if (displayName)
         [dict setObject:displayName forKey:@"displayName"];
+
+    if (email)
+        [dict setObject:email forKey:@"email"];
 
     if (emailVerified)
         [dict setObject:[emailVerified stringFromISO8601DateTime] forKey:@"emailVerified"];

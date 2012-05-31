@@ -38,10 +38,8 @@
 @property (nonatomic, copy) NSString *name;  
 - (id)init;
 
-- (id)init;
 + (id)pluralLevelThree;
 
-+ (id)pluralLevelThree;
 + (id)pluralLevelThreeObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

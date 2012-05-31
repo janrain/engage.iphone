@@ -198,14 +198,15 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:10];
 
-    [dict setObject:domain forKey:@"domain"];
-    [dict setObject:identifier forKey:@"identifier"];
 
     if (profilesId)
         [dict setObject:[NSNumber numberWithInt:profilesId] forKey:@"id"];
 
     if (accessCredentials)
         [dict setObject:accessCredentials forKey:@"accessCredentials"];
+
+    if (domain)
+        [dict setObject:domain forKey:@"domain"];
 
     if (followers)
         [dict setObject:[followers arrayOfFollowersDictionariesFromFollowersObjects] forKey:@"followers"];
@@ -215,6 +216,9 @@
 
     if (friends)
         [dict setObject:[friends arrayOfFriendsDictionariesFromFriendsObjects] forKey:@"friends"];
+
+    if (identifier)
+        [dict setObject:identifier forKey:@"identifier"];
 
     if (profile)
         [dict setObject:[profile dictionaryFromObject] forKey:@"profile"];

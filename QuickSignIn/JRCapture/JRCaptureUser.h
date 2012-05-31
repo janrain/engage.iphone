@@ -75,9 +75,9 @@
 @property (nonatomic, copy) NSArray *testerStringPlural; /* This is an array of JRTesterStringPlural */ 
 - (id)init;
 
-- (id)initWithEmail:(NSString *)newEmail;
 + (id)captureUser;
 
+- (id)initWithEmail:(NSString *)newEmail;
 + (id)captureUserWithEmail:(NSString *)email;
 + (id)captureUserObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

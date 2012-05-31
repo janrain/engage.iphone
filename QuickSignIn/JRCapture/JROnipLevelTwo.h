@@ -39,10 +39,8 @@
 @property (nonatomic, copy) JROnipLevelThree *onipLevelThree;  
 - (id)init;
 
-- (id)init;
 + (id)onipLevelTwo;
 
-+ (id)onipLevelTwo;
 + (id)onipLevelTwoObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

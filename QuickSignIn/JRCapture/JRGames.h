@@ -41,10 +41,8 @@
 @property                   NSInteger rating;
 - (id)init;
 
-- (id)init;
 + (id)games;
 
-+ (id)games;
 + (id)gamesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

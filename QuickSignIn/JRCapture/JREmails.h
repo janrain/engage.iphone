@@ -39,10 +39,8 @@
 @property (nonatomic, copy) NSString *value;  
 - (id)init;
 
-- (id)init;
 + (id)emails;
 
-+ (id)emails;
 + (id)emailsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

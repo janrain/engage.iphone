@@ -39,10 +39,8 @@
 @property (nonatomic, copy) JRObjectLevelThree *objectLevelThree;  
 - (id)init;
 
-- (id)init;
 + (id)objectLevelTwo;
 
-+ (id)objectLevelTwo;
 + (id)objectLevelTwoObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

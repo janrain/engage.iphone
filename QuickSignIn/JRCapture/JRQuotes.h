@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *quote;  
 - (id)init;
 
-- (id)init;
 + (id)quotes;
 
-+ (id)quotes;
 + (id)quotesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

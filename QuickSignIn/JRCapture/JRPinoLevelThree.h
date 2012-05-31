@@ -38,10 +38,8 @@
 @property (nonatomic, copy) NSString *name;  
 - (id)init;
 
-- (id)init;
 + (id)pinoLevelThree;
 
-+ (id)pinoLevelThree;
 + (id)pinoLevelThreeObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

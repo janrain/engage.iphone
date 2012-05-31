@@ -39,10 +39,8 @@
 @property (nonatomic, copy) NSString *value;  
 - (id)init;
 
-- (id)init;
 + (id)profilePhotos;
 
-+ (id)profilePhotos;
 + (id)profilePhotosObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

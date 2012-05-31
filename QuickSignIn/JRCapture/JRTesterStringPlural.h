@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *stringPluralItem;  
 - (id)init;
 
-- (id)init;
 + (id)testerStringPlural;
 
-+ (id)testerStringPlural;
 + (id)testerStringPluralObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

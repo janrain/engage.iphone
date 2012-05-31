@@ -39,10 +39,8 @@
 @property (nonatomic, copy) JRPinoLevelTwo *pinoLevelTwo;  
 - (id)init;
 
-- (id)init;
 + (id)pinoLevelOne;
 
-+ (id)pinoLevelOne;
 + (id)pinoLevelOneObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

@@ -93,10 +93,12 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:10];
 
-    [dict setObject:identifier forKey:@"identifier"];
 
     if (followersId)
         [dict setObject:[NSNumber numberWithInt:followersId] forKey:@"id"];
+
+    if (identifier)
+        [dict setObject:identifier forKey:@"identifier"];
 
     return dict;
 }

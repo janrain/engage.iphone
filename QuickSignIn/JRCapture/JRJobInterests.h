@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *jobInterest;  
 - (id)init;
 
-- (id)init;
 + (id)jobInterests;
 
-+ (id)jobInterests;
 + (id)jobInterestsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

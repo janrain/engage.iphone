@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *sport;  
 - (id)init;
 
-- (id)init;
 + (id)sports;
 
-+ (id)sports;
 + (id)sportsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

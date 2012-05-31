@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *name;  
 - (id)init;
 
-- (id)init;
 + (id)opponents;
 
-+ (id)opponents;
 + (id)opponentsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

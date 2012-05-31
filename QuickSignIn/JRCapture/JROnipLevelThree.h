@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *name;  
 - (id)init;
 
-- (id)init;
 + (id)onipLevelThree;
 
-+ (id)onipLevelThree;
 + (id)onipLevelThreeObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

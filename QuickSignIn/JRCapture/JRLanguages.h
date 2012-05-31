@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *language;  
 - (id)init;
 
-- (id)init;
 + (id)languages;
 
-+ (id)languages;
 + (id)languagesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

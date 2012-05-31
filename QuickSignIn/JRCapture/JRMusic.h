@@ -37,10 +37,8 @@
 @property (nonatomic, copy) NSString *music;  
 - (id)init;
 
-- (id)init;
 + (id)music;
 
-+ (id)music;
 + (id)musicObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

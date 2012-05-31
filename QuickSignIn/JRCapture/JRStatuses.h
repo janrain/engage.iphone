@@ -38,10 +38,8 @@
 @property (nonatomic, copy) NSDate *statusCreated;  
 - (id)init;
 
-- (id)init;
 + (id)statuses;
 
-+ (id)statuses;
 + (id)statusesObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;
 @end

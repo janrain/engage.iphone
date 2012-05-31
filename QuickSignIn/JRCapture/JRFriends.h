@@ -37,9 +37,9 @@
 @property (nonatomic, copy) NSString *identifier;  
 - (id)init;
 
-- (id)initWithIdentifier:(NSString *)newIdentifier;
 + (id)friends;
 
+- (id)initWithIdentifier:(NSString *)newIdentifier;
 + (id)friendsWithIdentifier:(NSString *)identifier;
 + (id)friendsObjectFromDictionary:(NSDictionary*)dictionary;
 - (void)updateFromDictionary:(NSDictionary*)dictionary;

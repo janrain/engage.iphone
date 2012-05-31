@@ -167,7 +167,8 @@
 
 - (void)populateCaptureUser
 {
-    captureUser.email           = myEmailTextView.text;
+    if (myEmailTextView.text && ![myEmailTextView.text isEqualToString:@""])
+        captureUser.email       = myEmailTextView.text;
     captureUser.currentLocation = myLocationTextView.text;
     captureUser.aboutMe         = myAboutMeTextView.text;
     captureUser.birthday        = myBirthdate;
@@ -176,22 +177,6 @@
         captureUser.gender = @"female";
     else if (myGenderIdentitySegControl.selectedSegmentIndex == 1)
         captureUser.gender = @"male";
-
-    NSMutableArray *newArray = [NSMutableArray arrayWithArray:captureUser.testerStringPlural];
-
-    JRTesterStringPlural *firstNew  = [JRTesterStringPlural testerStringPlural];
-    JRTesterStringPlural *secondNew = [JRTesterStringPlural testerStringPlural];
-    JRTesterStringPlural *thirdNew  = [JRTesterStringPlural testerStringPlural];
-
-    firstNew.stringPluralItem  = @"foo";
-    secondNew.stringPluralItem = @"bar";
-    thirdNew.stringPluralItem  = @"baz";
-
-    [newArray addObject:firstNew];
-    [newArray addObject:secondNew];
-    [newArray addObject:thirdNew];
-
-    captureUser.testerStringPlural = [NSArray arrayWithArray:newArray];
 }
 
 - (IBAction)doneButtonPressed:(id)sender
