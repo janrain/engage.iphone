@@ -251,6 +251,7 @@
 @synthesize testerInteger;
 @synthesize testerIpAddr;
 @synthesize testerStringPlural;
+@synthesize testerUniqueString;
 
 - (id)init
 {
@@ -319,6 +320,7 @@
     captureUserCopy.testerInteger = self.testerInteger;
     captureUserCopy.testerIpAddr = self.testerIpAddr;
     captureUserCopy.testerStringPlural = self.testerStringPlural;
+    captureUserCopy.testerUniqueString = self.testerUniqueString;
 
     return captureUserCopy;
 }
@@ -358,6 +360,7 @@
     captureUser.testerInteger = [(NSNumber*)[dictionary objectForKey:@"testerInteger"] intValue];
     captureUser.testerIpAddr = [dictionary objectForKey:@"testerIpAddr"];
     captureUser.testerStringPlural = [(NSArray*)[dictionary objectForKey:@"testerStringPlural"] arrayOfTesterStringPluralObjectsFromTesterStringPluralDictionaries];
+    captureUser.testerUniqueString = [dictionary objectForKey:@"testerUniqueString"];
 
     return captureUser;
 }
@@ -447,6 +450,9 @@
 
     if (testerStringPlural)
         [dict setObject:[testerStringPlural arrayOfTesterStringPluralDictionariesFromTesterStringPluralObjects] forKey:@"testerStringPlural"];
+
+    if (testerUniqueString)
+        [dict setObject:testerUniqueString forKey:@"testerUniqueString"];
 
     return dict;
 }
@@ -542,6 +548,9 @@
 
     if ([dictionary objectForKey:@"testerStringPlural"])
         self.testerStringPlural = [(NSArray*)[dictionary objectForKey:@"testerStringPlural"] arrayOfTesterStringPluralObjectsFromTesterStringPluralDictionaries];
+
+    if ([dictionary objectForKey:@"testerUniqueString"])
+        self.testerUniqueString = [dictionary objectForKey:@"testerUniqueString"];
 }
 
 - (void)dealloc
@@ -573,6 +582,7 @@
     [statuses release];
     [testerIpAddr release];
     [testerStringPlural release];
+    [testerUniqueString release];
 
     [super dealloc];
 }

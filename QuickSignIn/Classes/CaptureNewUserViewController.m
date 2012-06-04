@@ -169,7 +169,8 @@
 {
     if (myEmailTextView.text && ![myEmailTextView.text isEqualToString:@""])
         captureUser.email       = myEmailTextView.text;
-    captureUser.currentLocation = myLocationTextView.text;
+//    captureUser.currentLocation = myLocationTextView.text;
+    captureUser.testerUniqueString = myLocationTextView.text;
     captureUser.aboutMe         = myAboutMeTextView.text;
     captureUser.birthday        = myBirthdate;
 

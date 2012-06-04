@@ -400,10 +400,14 @@ otherwise, this happens automatically.                                          
     displayName     = [[currentUser objectForKey:@"displayName"] retain];
     currentProvider = [[currentUser objectForKey:@"provider"] retain];
 
-    NSDictionary *captureUserDict = [[[self userProfiles] objectForKey:identifier] objectForKey:@"captureProfile"];
+    //NSDictionary *captureUserDict = [[[self userProfiles] objectForKey:identifier] objectForKey:@"captureProfile"];
 
-    if (captureUserDict)
-        self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureUserDict];
+    NSDictionary *captureProfileDictionary = [prefs objectForKey:@"captureProfile"];
+
+    if (captureProfileDictionary)
+        self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureProfileDictionary];
+
+    self.latestAccessToken = [prefs objectForKey:@"captureAccessToken"];
 
  /* Then check the cookies to make sure the saved user's identifier matches any cookie returned from
     the token URL, or if their session has expired */
@@ -459,16 +463,16 @@ otherwise, this happens automatically.                                          
     }
 
     NSString     *captureAccessToken = [captureDictionary objectForKey:@"access_token"];
-    NSDictionary *captureCredentials;
-
-    self.latestAccessToken = captureAccessToken;
-    self.isNewRecord = false;
+    NSDictionary *captureCredentials = nil;
 
     if (captureAccessToken)
-        captureCredentials = [NSDictionary dictionaryWithObject:captureAccessToken
-                                                         forKey:@"access_token"];
-    else
-        captureCredentials = nil;
+    {
+        self.latestAccessToken = captureAccessToken;
+        captureCredentials     = [NSDictionary dictionaryWithObject:captureAccessToken
+                                                             forKey:@"access_token"];
+    }
+
+    self.isNewRecord = false;
 
     NSDictionary *captureProfile = nil;
     if (captureDemo)// && captureAccessToken)
@@ -483,8 +487,9 @@ otherwise, this happens automatically.                                          
 
     [newProfiles setObject:userProfile forKey:[currentUser objectForKey:@"identifier"]];
     [prefs setObject:newProfiles forKey:@"userProfiles"];
+    [prefs setObject:captureProfile forKey:@"captureProfile"];
+    [prefs setObject:latestAccessToken forKey:@"captureAccessToken"];
 }
-
 
 - (void)finishSignUserOut
 {
@@ -505,6 +510,9 @@ otherwise, this happens automatically.                                          
  /* save the array, and nullify the currentUser. */
     [prefs setObject:signinHistory forKey:@"signinHistory"];
     [prefs setObject:nil forKey:@"currentUser"];
+
+    [prefs setObject:nil forKey:@"captureProfile"];
+    [prefs setObject:nil forKey:@"captureAccessToken"];
 
     [signinHistory release];
 
@@ -732,6 +740,8 @@ otherwise, this happens automatically.                                          
 
     self.captureUser = [JRCaptureUser captureUserObjectFromDictionary:captureProfile];
 
+    [prefs setObject:latestAccessToken forKey:@"captureAccessToken"];
+
     if (captureProfile)
         [authInfo setObject:captureProfile forKey:@"captureProfile"];
     if (captureCredentials)
@@ -747,8 +757,14 @@ otherwise, this happens automatically.                                          
 
     // TODO: Fix this delegation crap; maybe add show stuff to didReachTokenUrl or something
     if (captureCreationToken || isNewRecord)
+    {
         if ([tokenUrlDelegate respondsToSelector:@selector(showCaptureScreen)])
-                [tokenUrlDelegate showCaptureScreen];
+            [tokenUrlDelegate showCaptureScreen];
+    }
+    else
+    {
+        [prefs setObject:latestAccessToken forKey:@"captureAccessToken"];
+    }
 
     // TODO: delegate function is optional
     [tokenUrlDelegate didReachTokenUrl];

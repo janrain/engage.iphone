@@ -73,6 +73,7 @@
 @property                   NSInteger testerInteger;
 @property (nonatomic, copy) NSString *testerIpAddr;  
 @property (nonatomic, copy) NSArray *testerStringPlural; /* This is an array of JRTesterStringPlural */ 
+@property (nonatomic, copy) NSString *testerUniqueString;  
 - (id)init;
 
 + (id)captureUser;

@@ -261,7 +261,6 @@
 		C01FCF5008A9545400542579 /* JRCars.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A9545400542578 /* JRCars.m */; };
 		C01FCF5008A954540054257C /* JRChildren.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054257B /* JRChildren.m */; };
 		C01FCF5008A954540054257F /* JRCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054257E /* JRCurrentLocation.m */; };
-		C01FCF5008A9545400542582 /* JRDomains.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A9545400542581 /* JRDomains.m */; };
 		C01FCF5008A9545400542585 /* JREmails.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A9545400542584 /* JREmails.m */; };
 		C01FCF5008A9545400542588 /* JRFollowers.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A9545400542587 /* JRFollowers.m */; };
 		C01FCF5008A954540054258B /* JRFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054258A /* JRFollowing.m */; };
@@ -276,7 +275,6 @@
 		C01FCF5008A95454005425A6 /* JRLanguagesSpoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425A5 /* JRLanguagesSpoken.m */; };
 		C01FCF5008A95454005425A9 /* JRLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425A8 /* JRLocation.m */; };
 		C01FCF5008A95454005425AC /* JRLookingFor.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425AB /* JRLookingFor.m */; };
-		C01FCF5008A95454005425AF /* JRMgGuids.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425AE /* JRMgGuids.m */; };
 		C01FCF5008A95454005425B2 /* JRMovies.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425B1 /* JRMovies.m */; };
 		C01FCF5008A95454005425B5 /* JRMusic.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425B4 /* JRMusic.m */; };
 		C01FCF5008A95454005425B8 /* JRName.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A95454005425B7 /* JRName.m */; };
@@ -557,8 +555,6 @@
 		C01FCF5008A954540054257B /* JRChildren.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRChildren.m; sourceTree = "<group>"; };
 		C01FCF5008A954540054257D /* JRCurrentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRCurrentLocation.h; sourceTree = "<group>"; };
 		C01FCF5008A954540054257E /* JRCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRCurrentLocation.m; sourceTree = "<group>"; };
-		C01FCF5008A9545400542580 /* JRDomains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRDomains.h; sourceTree = "<group>"; };
-		C01FCF5008A9545400542581 /* JRDomains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRDomains.m; sourceTree = "<group>"; };
 		C01FCF5008A9545400542583 /* JREmails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JREmails.h; sourceTree = "<group>"; };
 		C01FCF5008A9545400542584 /* JREmails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JREmails.m; sourceTree = "<group>"; };
 		C01FCF5008A9545400542586 /* JRFollowers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRFollowers.h; sourceTree = "<group>"; };
@@ -587,8 +583,6 @@
 		C01FCF5008A95454005425A8 /* JRLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRLocation.m; sourceTree = "<group>"; };
 		C01FCF5008A95454005425AA /* JRLookingFor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRLookingFor.h; sourceTree = "<group>"; };
 		C01FCF5008A95454005425AB /* JRLookingFor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRLookingFor.m; sourceTree = "<group>"; };
-		C01FCF5008A95454005425AD /* JRMgGuids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRMgGuids.h; sourceTree = "<group>"; };
-		C01FCF5008A95454005425AE /* JRMgGuids.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRMgGuids.m; sourceTree = "<group>"; };
 		C01FCF5008A95454005425B0 /* JRMovies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRMovies.h; sourceTree = "<group>"; };
 		C01FCF5008A95454005425B1 /* JRMovies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRMovies.m; sourceTree = "<group>"; };
 		C01FCF5008A95454005425B3 /* JRMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRMusic.h; sourceTree = "<group>"; };
@@ -1197,8 +1191,6 @@
 				C01FCF5008A95454005425B3 /* JRMusic.h */,
 				C01FCF5008A95454005425B1 /* JRMovies.m */,
 				C01FCF5008A95454005425B0 /* JRMovies.h */,
-				C01FCF5008A95454005425AE /* JRMgGuids.m */,
-				C01FCF5008A95454005425AD /* JRMgGuids.h */,
 				C01FCF5008A95454005425AB /* JRLookingFor.m */,
 				C01FCF5008A95454005425AA /* JRLookingFor.h */,
 				C01FCF5008A95454005425A8 /* JRLocation.m */,
@@ -1227,8 +1219,6 @@
 				C01FCF5008A9545400542586 /* JRFollowers.h */,
 				C01FCF5008A9545400542584 /* JREmails.m */,
 				C01FCF5008A9545400542583 /* JREmails.h */,
-				C01FCF5008A9545400542581 /* JRDomains.m */,
-				C01FCF5008A9545400542580 /* JRDomains.h */,
 				C01FCF5008A954540054257E /* JRCurrentLocation.m */,
 				C01FCF5008A954540054257D /* JRCurrentLocation.h */,
 				C01FCF5008A954540054257B /* JRChildren.m */,
@@ -1565,7 +1555,6 @@
 				C01FCF5008A9545400542579 /* JRCars.m in Sources */,
 				C01FCF5008A954540054257C /* JRChildren.m in Sources */,
 				C01FCF5008A954540054257F /* JRCurrentLocation.m in Sources */,
-				C01FCF5008A9545400542582 /* JRDomains.m in Sources */,
 				C01FCF5008A9545400542585 /* JREmails.m in Sources */,
 				C01FCF5008A9545400542588 /* JRFollowers.m in Sources */,
 				C01FCF5008A954540054258B /* JRFollowing.m in Sources */,
@@ -1580,7 +1569,6 @@
 				C01FCF5008A95454005425A6 /* JRLanguagesSpoken.m in Sources */,
 				C01FCF5008A95454005425A9 /* JRLocation.m in Sources */,
 				C01FCF5008A95454005425AC /* JRLookingFor.m in Sources */,
-				C01FCF5008A95454005425AF /* JRMgGuids.m in Sources */,
 				C01FCF5008A95454005425B2 /* JRMovies.m in Sources */,
 				C01FCF5008A95454005425B5 /* JRMusic.m in Sources */,
 				C01FCF5008A95454005425B8 /* JRName.m in Sources */,
