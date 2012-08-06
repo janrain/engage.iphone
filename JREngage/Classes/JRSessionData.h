@@ -122,12 +122,14 @@ extern NSString * JREngageErrorDomain;
 @interface JRAuthenticatedUser : NSObject
 {
     NSString *_photo;
+    NSString *_displayName;
     NSString *_preferredUsername;
     NSString *_deviceToken;
     NSString *_providerName;
     NSString *_welcomeString;
 }
 @property (readonly) NSString *photo;
+@property (readonly) NSString *displayName;
 @property (readonly) NSString *preferredUsername;
 @property (readonly) NSString *deviceToken;
 @property (readonly) NSString *providerName;

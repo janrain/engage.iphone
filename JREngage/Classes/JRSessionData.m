@@ -72,12 +72,12 @@ static NSString * const serverUrl = @"https://rpxnow.com";
 
 #pragma mark consts
 /* Lists of the standard names for providers' logo and icons */
-static NSString * const iconNames[5] = { @"icon_%@_30x30.png",
+static NSString * const iconNames[] = { @"icon_%@_30x30.png",
                                          @"icon_%@_30x30@2x.png",
                                          @"logo_%@_280x65.png",
                                          @"logo_%@_280x65@2x.png", nil };
 
-static NSString * const iconNamesSocial[11] = { @"icon_%@_30x30.png",
+static NSString * const iconNamesSocial[] = { @"icon_%@_30x30.png",
                                                 @"icon_%@_30x30@2x.png",
                                                 @"logo_%@_280x65.png",
                                                 @"logo_%@_280x65@2x.png",
@@ -116,6 +116,7 @@ static NSString * const iconNamesSocial[11] = { @"icon_%@_30x30.png",
 
 #define cJRUserProviderName      @"provider_name"
 #define cJRUserPhoto             @"photo"
+#define cJRUserDisplayName       @"display_name"
 #define cJRUserPreferredUsername @"preferred_username"
 #define cJRUserWelcomeString     @"welcome_string"
 
@@ -180,6 +181,7 @@ NSString * JREngageErrorDomain = @"JREngage.ErrorDomain";
 
 @implementation JRAuthenticatedUser
 @synthesize photo             = _photo;
+@synthesize displayName       = _displayName;
 @synthesize preferredUsername = _preferredUsername;
 @synthesize deviceToken       = _deviceToken;
 @synthesize providerName      = _providerName;
@@ -201,6 +203,9 @@ NSString * JREngageErrorDomain = @"JREngage.ErrorDomain";
         if ((void*)[dictionary objectForKey:@"photo"] != kCFNull)
             _photo = [[dictionary objectForKey:@"photo"] retain];
 
+        _displayName = [[[dictionary objectForKey:@"auth_info"] objectForKey:@"profile"] objectForKey:@"displayName"];
+        [_displayName retain];
+
         if ((void*)[dictionary objectForKey:@"preferred_username"] != kCFNull)
             _preferredUsername = [[dictionary objectForKey:@"preferred_username"] retain];
 
@@ -217,6 +222,7 @@ NSString * JREngageErrorDomain = @"JREngage.ErrorDomain";
 {
     [coder encodeObject:_providerName      forKey:cJRUserProviderName];
     [coder encodeObject:_photo             forKey:cJRUserPhoto];
+    [coder encodeObject:_displayName       forKey:cJRUserDisplayName];
     [coder encodeObject:_preferredUsername forKey:cJRUserPreferredUsername];
     [coder encodeObject:_welcomeString     forKey:cJRUserWelcomeString];
 
@@ -241,6 +247,7 @@ NSString * JREngageErrorDomain = @"JREngage.ErrorDomain";
     {
         _providerName      = [[coder decodeObjectForKey:cJRUserProviderName] retain];
         _photo             = [[coder decodeObjectForKey:cJRUserPhoto] retain];
+        _displayName       = [[coder decodeObjectForKey:cJRUserDisplayName] retain];
         _preferredUsername = [[coder decodeObjectForKey:cJRUserPreferredUsername] retain];
         _welcomeString     = [[coder decodeObjectForKey:cJRUserWelcomeString] retain];
 
@@ -839,7 +846,7 @@ static JRSessionData* singleton = nil;
                                                    andDictionary:dictionary] autorelease];
 
         /* make sure we have this provider's icons, */
-        [self checkForIcons:((provider.social) ? (NSString**)&iconNamesSocial : (NSString**)&iconNames) forProvider:name];
+        [self checkForIcons:((provider.social) ? (NSString**)iconNamesSocial : (NSString**)iconNames) forProvider:name];
 
         /* and finally add the object to our dictionary of providers. */
         [allProviders setObject:provider forKey:name];

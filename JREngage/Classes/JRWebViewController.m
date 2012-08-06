@@ -159,6 +159,9 @@
 
     [self webViewWithUrl:[sessionData startUrlForCurrentProvider]];
     [myWebView becomeFirstResponder];
+    //DLog(@"scalePagesToFit: %i", myWebView.scalesPageToFit);
+    // Defaults to YES on iPhone, iPad
+    //myWebView.scalesPageToFit = YES;
 
     [infoBar fadeIn];
 }

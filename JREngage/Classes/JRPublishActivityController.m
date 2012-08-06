@@ -502,10 +502,21 @@ Please try again later."
         [myLoadingActivitySpinner stopAnimating];
 }
 
+- (NSString *)uiName
+{
+    NSString *const provName = self.selectedProvider.name;
+    if ([provName isEqualToString:@"facebook"] && loggedInUser.displayName)
+        return loggedInUser.displayName;
+    else if ([provName isEqualToString:@"twitter"])
+        return loggedInUser.preferredUsername;
+    else // not sure what would be best for yahoo, linkedin, myspace
+        return loggedInUser.preferredUsername;
+}
+
 - (void)showUserAsLoggedIn:(BOOL)loggedIn
 {
     if (loggedIn)
-        [myPreviewOfTheUserCommentLabel setUsername:loggedInUser.preferredUsername];
+        [myPreviewOfTheUserCommentLabel setUsername: [self uiName]];
     else
         [myPreviewOfTheUserCommentLabel setUsername:@"You"];
 
@@ -564,11 +575,9 @@ Please try again later."
 - (void)updatePreviewTextWhenContentReplacesAction
 {
     DLog(@"");
-    NSString *username = (loggedInUser) ?
-                                loggedInUser.preferredUsername :
-                                @"You";
+    NSString *username = (loggedInUser) ? [self uiName] : @"You";
 
-    NSString *url      = (shortenedActivityUrl) ?
+    NSString *url = (shortenedActivityUrl) ?
                                 shortenedActivityUrl :
                                 @"shortening url...";
 
@@ -595,7 +604,7 @@ Please try again later."
 - (void)updatePreviewTextWhenContentDoesNotReplaceAction
 {
     DLog(@"");
-    NSString *username = (loggedInUser) ? loggedInUser.preferredUsername : @"You";
+    NSString *username = (loggedInUser) ? [self uiName] : @"You";
     NSString *text     = currentActivity.action;
 
     [myPreviewOfTheUserCommentLabel setUsername:username];
@@ -714,7 +723,7 @@ Please try again later."
 - (void)loadUserNameAndProfilePicForUser:(JRAuthenticatedUser*)user forProvider:(NSString*)providerName
 {
     DLog(@"");
-    myUserName.text = user.preferredUsername;
+    myUserName.text = [self uiName];
 
     NSData *cachedProfilePic = [cachedProfilePics objectForKey:providerName];
 
@@ -1139,8 +1148,8 @@ Please try again later."
     UIActionSheet *action = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:
                                                                    @"You are currently signed in to %@%@. Would you like to sign out?",
                                                                    selectedProvider.friendlyName,
-                                                                   (loggedInUser.preferredUsername) ?
-                                                                   [NSString stringWithFormat:@" as %@", loggedInUser.preferredUsername] : @""]
+                                                                   ([self uiName]) ?
+                                                                   [NSString stringWithFormat:@" as %@", [self uiName]] : @""]
                                                          delegate:self
                                                 cancelButtonTitle:@"Cancel"
                                            destructiveButtonTitle:@"Sign Out"
