@@ -32,9 +32,7 @@ Copyright (c) 2010, Janrain, Inc.
  Date:   Tuesday, June 1, 2010
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#import <UIKit/UIKit.h>
 #import "QSIViewControllerLevel1.h"
-#import "QSIUserModel.h"
 
 @interface UITableViewCellSignInHistory : UITableViewCell
 {
@@ -48,7 +46,7 @@ Copyright (c) 2010, Janrain, Inc.
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
 //      [self addSubview:icon];
     }
@@ -452,12 +450,13 @@ Copyright (c) 2010, Janrain, Inc.
     [[UserModel getUserModel] startSignUserIn:self];
 }
 
-- (void)delaySignOut:(NSTimer*)theTimer
-{
-    [[UserModel getUserModel] startSignUserOut:self];
-}
+//- (void)delaySignOut:(NSTimer*)theTimer
+//{
+//    [[UserModel getUserModel] startSignUserOut:self];
+//}
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex { }
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex { }
+
 
 - (void)addAnotherButtonPressed:(id)sender
 {
@@ -661,7 +660,7 @@ Copyright (c) 2010, Janrain, Inc.
 
     NSDictionary *userForCell = (indexPath.section == 0) ?
                                     [[UserModel getUserModel] currentUser] :
-                                    [[[UserModel getUserModel] signinHistory] objectAtIndex:indexPath.row];
+                                    [[[UserModel getUserModel] signinHistory] objectAtIndex:(NSUInteger) indexPath.row];
 
     NSString *identifier = [userForCell objectForKey:@"identifier"];
     NSDictionary* userProfile = [[[[UserModel getUserModel] userProfiles] objectForKey:identifier] objectForKey:@"profile"];
@@ -691,7 +690,7 @@ Copyright (c) 2010, Janrain, Inc.
     if (indexPath.section == 0)
         [model setSelectedUser:[model currentUser]];
     else
-        [model setSelectedUser:[[model signinHistory] objectAtIndex:indexPath.row]];
+        [model setSelectedUser:[[model signinHistory] objectAtIndex:(NSUInteger) indexPath.row]];
 
     if (iPad)
     {
@@ -721,7 +720,7 @@ Copyright (c) 2010, Janrain, Inc.
 
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {/* Remove this profile from the Model's saved history. */
-        [[UserModel getUserModel] removeUserFromHistory:indexPath.row];
+        [[UserModel getUserModel] removeUserFromHistory:(NSUInteger) indexPath.row];
 
      /* If that profile was the last one in the list of previous users... */
         if (![[[UserModel getUserModel] signinHistory] count])

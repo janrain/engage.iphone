@@ -134,11 +134,11 @@
 @property (readonly) BOOL iPad;
 /* Function that removes specific sessions from the signinHistory array, and
    periodically purges the removed profiles from the userProfile dictionary. */
-- (void)removeUserFromHistory:(int)index;
+- (void)removeUserFromHistory:(NSUInteger)index;
 
 /* Functions to initiate signing in/out of a user. */
-- (void)startSignUserIn:(id<UserModelDelegate>)interestedPartySignIn
-		   afterSignOut:(id<UserModelDelegate>)interestedPartySignOut;
+//- (void)startSignUserIn:(id<UserModelDelegate>)interestedPartySignIn
+//		   afterSignOut:(id<UserModelDelegate>)interestedPartySignOut;
 - (void)startSignUserIn:(id<UserModelDelegate>)interestedParty;
 - (void)startSignUserOut:(id<UserModelDelegate>)interestedParty;
 

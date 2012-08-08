@@ -88,7 +88,7 @@ otherwise, this happens automatically.                                          
 
 - (UserModel*)init
 {
-    if (self = [super init])
+    if ((self = [super init]))
     {
      /* Instantiate an instance of the JRAuthenticate library with your application ID and token URL */
         jrEngage = [JREngage jrEngageWithAppId:appId andTokenUrl:tokenUrl delegate:self];
@@ -155,7 +155,7 @@ otherwise, this happens automatically.                                          
 
 + (NSString*)getDisplayNameFromProfile:(NSDictionary*)profile
 {
-    NSString *name = nil;
+    NSString *name;
 
     if ([profile objectForKey:@"preferredUsername"])
         name = [NSString stringWithFormat:@"%@", [profile objectForKey:@"preferredUsername"]];
@@ -185,7 +185,7 @@ otherwise, this happens automatically.                                          
 
 + (NSString*)getAddressFromProfile:(NSDictionary*)profile
 {
-    NSString *addr = nil;
+    NSString *addr;
 
     if ([[profile objectForKey:@"address"] objectForKey:@"formatted"])
         addr = [NSString stringWithFormat:@"%@",
@@ -283,7 +283,7 @@ otherwise, this happens automatically.                                          
     [prefs setInteger:historyCountSnapShot forKey:@"historyCount"];
 }
 
-- (void)removeUserFromHistory:(int)index
+- (void)removeUserFromHistory:(NSUInteger)index
 {
  /* Create a mutable array from the non-mutable NSUserDefaults array, */
     NSArray *tmpArr = [prefs arrayForKey:@"signinHistory"];
@@ -469,7 +469,7 @@ otherwise, this happens automatically.                                          
     loadingUserData = YES;
     signInDelegate = [interestedParty retain];
 
-    NSMutableDictionary *moreCustomizations = nil;
+    NSMutableDictionary *moreCustomizations;
 
     if (YES)//(NO) /* Change this to "if (YES)" to see an example of how you can add native login to the list of providers. */
     {
@@ -500,14 +500,14 @@ otherwise, this happens automatically.                                          
         customInterface = [moreCustomizations retain];
 
     /* Launch the JRAuthenticate Library. */
-    [JREngage showAuthenticationDialogWithCustomInterfaceOverrides:customInterface];
+    [jrEngage showAuthenticationDialogWithCustomInterfaceOverrides:customInterface];
 }
 
-- (void)startSignUserIn:(id<UserModelDelegate>)interestedPartySignIn afterSignOut:(id<UserModelDelegate>)interestedPartySignOut
-{
-    signOutDelegate = [interestedPartySignOut retain];
-    [self startSignUserIn:interestedPartySignIn];
-}
+//- (void)startSignUserIn:(id<UserModelDelegate>)interestedPartySignIn afterSignOut:(id<UserModelDelegate>)interestedPartySignOut
+//{
+//    signOutDelegate = [interestedPartySignOut retain];
+//    [self startSignUserIn:interestedPartySignIn];
+//}
 
 - (void)startSignUserOut:(id<UserModelDelegate>)interestedParty
 {
@@ -617,5 +617,23 @@ otherwise, this happens automatically.                                          
     [tokenUrlDelegate release], tokenUrlDelegate = nil;
 //  [signInDelegate didFailToSignIn:YES];
 //  [signInDelegate release], signInDelegate = nil;
+}
+
+- (void)dealloc
+{
+    [signInDelegate release];
+    [customInterface release];
+    [signOutDelegate release];
+    [currentProvider release];
+    [identifier release];
+    [displayName release];
+    [currentUser release];
+    [selectedUser release];
+    [navigationController release];
+    [embeddedTable release];
+    [tokenUrlDelegate release];
+    [libraryDialogDelegate release];
+    [prefs release];
+    [super dealloc];
 }
 @end
