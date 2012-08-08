@@ -499,8 +499,8 @@ otherwise, this happens automatically.                                          
     else
         customInterface = [moreCustomizations retain];
 
- /* Launch the JRAuthenticate Library. */
-    [jrEngage showAuthenticationDialogWithCustomInterfaceOverrides:customInterface];
+    /* Launch the JRAuthenticate Library. */
+    [JREngage showAuthenticationDialogWithCustomInterfaceOverrides:customInterface];
 }
 
 - (void)startSignUserIn:(id<UserModelDelegate>)interestedPartySignIn afterSignOut:(id<UserModelDelegate>)interestedPartySignOut
