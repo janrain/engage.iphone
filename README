@@ -1,1 +1,5 @@
-Janrain Engage for iOS has evolved into JUMP for iOS and has moved to a new repo:http://github.com/janrain/jump.ios
+Janrain Engage for iOS has evolved into JUMP for iOS and has moved to a new repo:
+
+http://github.com/janrain/jump.ios
+
+(The new repo still contains the JREngage library, and also adds a new library for Janrain Capture.)
